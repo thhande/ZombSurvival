@@ -10,6 +10,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform meleeAttackPoint;
     [SerializeField] private LayerMask enemyLayers;
     [SerializeField] private float attackRange = 0.5f;
+    [SerializeField] private SlashFxAutoDestroy slashEffectPrefab;
 
     private void Start()
     {
@@ -54,6 +55,9 @@ public class PlayerAttack : MonoBehaviour
 
         if (currentWeaponSlot == null || currentWeaponSlot.weaponProfile == null) return;
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(meleeAttackPoint.position, attackRange, enemyLayers);
+        SlashFxAutoDestroy slashEffect = Instantiate(slashEffectPrefab, meleeAttackPoint.position, meleeAttackPoint.rotation);
+        slashEffect.gameObject.SetActive(true);
+        slashEffect.SetTransform(meleeAttackPoint.transform);
         foreach (Collider2D enemy in hitEnemies)
         {
             EnemyDamageReceiver enemyDamageReceiver = enemy.GetComponent<EnemyDamageReceiver>();
@@ -79,5 +83,7 @@ public class PlayerAttack : MonoBehaviour
         weaponSlots = new List<PlayerWeaponSlots>(GetComponentsInChildren<PlayerWeaponSlots>());
         meleeAttackPoint = transform.parent.Find("AttackPoint");
         enemyLayers = LayerMask.GetMask("EnemyDamageReceiver");
+        slashEffectPrefab = meleeAttackPoint.Find("SlashEffect").GetComponent<SlashFxAutoDestroy>();
+
     }
 }
