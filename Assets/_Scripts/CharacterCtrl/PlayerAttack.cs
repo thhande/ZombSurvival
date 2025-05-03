@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -11,7 +12,13 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private LayerMask enemyLayers;
     [SerializeField] private float attackRange = 0.5f;
     [SerializeField] private SlashFxAutoDestroy slashEffectPrefab;
+    [SerializeField] private RangedAttackRange rangedAttackRange;
+    const float RANGED_ATTACK_RANGE = 7.06f;
 
+    private void OnValidate()
+    {
+        Start();
+    }
     private void Start()
     {
         LoadComponents();
@@ -46,6 +53,7 @@ public class PlayerAttack : MonoBehaviour
         if (InputManager.instance.GetMovementVector() != Vector2.zero)
         {
             meleeAttackPoint.localPosition = InputManager.instance.GetMovementVector() * 0.5f + Vector2.down * 0.25f;
+            rangedAttackRange.transform.localPosition = InputManager.instance.GetMovementVector() * RANGED_ATTACK_RANGE;
         }
     }
 
@@ -73,17 +81,20 @@ public class PlayerAttack : MonoBehaviour
     private void DoRangedAttack()
     {
         if (currentWeaponSlot == null || currentWeaponSlot.weaponProfile == null) return;
-        Instantiate(currentWeaponSlot.weaponProfile.bulletPrefab, currentWeaponSlot.transform.position, currentWeaponSlot.transform.rotation);
+        BulletMoving newBullet = Instantiate(currentWeaponSlot.weaponProfile.bulletPrefab, currentWeaponSlot.transform.position, currentWeaponSlot.transform.rotation);
+        EnemyDamageReceiver closestEnemy = rangedAttackRange.FindClosestEnemy();
+        if (closestEnemy != null) newBullet.SetTarget(closestEnemy.transform.position);
         currentWeaponSlot.BulletDecrease();
 
     }
 
     private void LoadComponents()
     {
-        weaponSlots = new List<PlayerWeaponSlots>(GetComponentsInChildren<PlayerWeaponSlots>());
-        meleeAttackPoint = transform.parent.Find("AttackPoint");
-        enemyLayers = LayerMask.GetMask("EnemyDamageReceiver");
-        slashEffectPrefab = meleeAttackPoint.Find("SlashEffect").GetComponent<SlashFxAutoDestroy>();
+        if (weaponSlots == null) weaponSlots = new List<PlayerWeaponSlots>(GetComponentsInChildren<PlayerWeaponSlots>());
+        if (meleeAttackPoint == null) meleeAttackPoint = transform.parent.Find("MeleeAttackPoint");
+        if (rangedAttackRange == null) rangedAttackRange = transform.parent.GetComponentInChildren<RangedAttackRange>();
+        if (enemyLayers == 0) enemyLayers = LayerMask.GetMask("EnemyDamageReceiver");
+        if (slashEffectPrefab == null) slashEffectPrefab = meleeAttackPoint.Find("SlashEffect").GetComponent<SlashFxAutoDestroy>();
 
     }
 }

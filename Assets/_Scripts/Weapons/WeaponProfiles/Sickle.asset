@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7d82da98af40064b93e262b869fdcee, type: 3}
+  m_Name: Sickle
+  m_EditorClassIdentifier: 
+  weaponName: Sickle
+  meleeDamage: 7
+  bulletPrefab: {fileID: 5813282758046877814, guid: 8204a3f1f43493448aef2a139f1f13de, type: 3}
+  weaponSprite: {fileID: 1349035616, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
+  weaponType: 0

@@ -27,7 +27,7 @@ public class InputManager : MonoBehaviour
 
     public Vector2 GetMovementVector()
     {
-        return movementInput;
+        return movementInput.normalized;
     }
 
     public bool GetMeleeAttackInput()
