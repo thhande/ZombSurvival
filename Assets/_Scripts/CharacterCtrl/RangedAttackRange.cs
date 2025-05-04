@@ -5,7 +5,8 @@ using UnityEngine;
 public class RangedAttackRange : MonoBehaviour
 {
     [SerializeField] private List<EnemyDamageReceiver> enemiesInRange = new List<EnemyDamageReceiver>();
-    private Transform playerTransform;
+    [SerializeField] private Transform playerTransform;
+
 
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -26,11 +27,12 @@ public class RangedAttackRange : MonoBehaviour
         float closestDistance = Mathf.Infinity;
         foreach (EnemyDamageReceiver enemy in enemiesInRange)
         {
-            float distance = Vector2.Distance(transform.position, enemy.transform.position);
+            float distance = Vector2.Distance(playerTransform.position, enemy.transform.position);
             if (distance < closestDistance)
             {
                 closestDistance = distance;
                 closestEnemy = enemy;
+
             }
         }
         return closestEnemy;
@@ -49,6 +51,6 @@ public class RangedAttackRange : MonoBehaviour
 
     private void LoadComponents()
     {
-        if (playerTransform != null) playerTransform = transform.parent;
+        if (playerTransform == null) playerTransform = transform.parent;
     }
 }

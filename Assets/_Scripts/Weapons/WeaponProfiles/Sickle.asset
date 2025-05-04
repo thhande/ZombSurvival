@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponName: Sickle
   meleeDamage: 7
-  bulletPrefab: {fileID: 5813282758046877814, guid: 8204a3f1f43493448aef2a139f1f13de, type: 3}
+  bulletPrefab: {fileID: 1310035606352509750, guid: 8204a3f1f43493448aef2a139f1f13de, type: 3}
   weaponSprite: {fileID: 1349035616, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
   weaponType: 0

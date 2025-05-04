@@ -6,12 +6,16 @@ public class PlayerWeaponSlots : WeaponContainer
 {
     private SpriteRenderer weaponSpriteRenderer;
 
+    private void OnValidate()
+    {
+        Start();
+    }
+
     void Start()
     {
         LoadComponents();
     }
 
-    // Update is called once per frame
     void Update()
     {
         UpdateWeaponAnim();
@@ -37,6 +41,10 @@ public class PlayerWeaponSlots : WeaponContainer
 
     //sprite renderer logic
     //#--------------------------------------------------
+    private void UpdateWeaponVisual()
+    {
+        weaponSpriteRenderer.sprite = weaponProfile.weaponSprite;
+    }
     private void UpdateWeaponAnim()
     {
         Vector2 direction = InputManager.instance.GetMovementVector().normalized;
@@ -54,10 +62,38 @@ public class PlayerWeaponSlots : WeaponContainer
     {
         weaponSpriteRenderer.enabled = true;
     }
+    //#--------------------------------------------------
+    //handle weapon profile logic
+    //#--------------------------------------------------
+    public void AddNewWeapon(WeaponDrop newWeapon)
+    {
+        if (weaponProfile == null)
+        {
+            weaponProfile = newWeapon.weaponProfile;
+            bulletCount = newWeapon.bulletCount;
 
+
+        }
+        else if (weaponProfile != newWeapon.weaponProfile || (weaponProfile.weaponType == newWeapon.weaponProfile.weaponType && weaponProfile.weaponType == WeaponType.Melee))
+        {
+            weaponProfile = newWeapon.weaponProfile;
+            bulletCount = newWeapon.bulletCount;
+        }
+        else
+        {
+            bulletCount += newWeapon.bulletCount;
+        }
+
+        UpdateWeaponVisual();
+    }
+
+    //load components logic
+    //#--------------------------------------------------
     private void LoadComponents()
     {
         weaponSpriteRenderer = GetComponent<SpriteRenderer>();
         if (weaponProfile != null) weaponSpriteRenderer.sprite = weaponProfile.weaponSprite;
     }
+
+
 }

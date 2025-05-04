@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9052629554315099038}
   - component: {fileID: 6226830488459870210}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -178,6 +178,7 @@ GameObject:
   - component: {fileID: 7718309490724273947}
   - component: {fileID: 1621797116676241218}
   - component: {fileID: 117576490932166074}
+  - component: {fileID: 5887000036004925156}
   m_Layer: 0
   m_Name: SuperShotgunBullet
   m_TagString: Untagged
@@ -273,3 +274,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 9
+--- !u!114 &5887000036004925156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3959919907807147018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 510d773d7829f334eb44750f5c15158b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfDestroyTime: 2

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6029768584535037556}
   - component: {fileID: 1310035606352509750}
+  - component: {fileID: 1081277004004766045}
   m_Layer: 0
   m_Name: Sickle
   m_TagString: Untagged
@@ -46,6 +47,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 20
+--- !u!114 &1081277004004766045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5813282758046877814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 510d773d7829f334eb44750f5c15158b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfDestroyTime: 2
 --- !u!1 &8914624914403804223
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +73,7 @@ GameObject:
   - component: {fileID: 1334177131431785178}
   - component: {fileID: 6288704718567721463}
   - component: {fileID: 1129157385020308957}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
