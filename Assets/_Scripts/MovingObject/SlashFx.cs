@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class SlashFxAutoDestroy : MonoBehaviour
+public class SlashFx : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
 

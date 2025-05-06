@@ -65,7 +65,7 @@ public class PlayerWeaponSlots : WeaponContainer
     //#--------------------------------------------------
     //handle weapon profile logic
     //#--------------------------------------------------
-    public void AddNewWeapon(WeaponDrop newWeapon)
+    public void AddNewWeapon(WeaponDropContainer newWeapon)
     {
         if (weaponProfile == null)
         {

@@ -68,11 +68,11 @@ public class InputManager : MonoBehaviour
     {
         return Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2);
     }
-    public bool ChangeWeaponInSLotOne()
+    public bool ChangeWeaponInSlotOne()
     {
         return Input.GetKeyDown(KeyCode.Q);
     }
-    public bool ChangeWeaponInSLotTwo()
+    public bool ChangeWeaponInSlotTwo()
     {
         return Input.GetKeyDown(KeyCode.E);
     }

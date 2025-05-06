@@ -11,7 +11,7 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private Transform meleeAttackPoint;
     [SerializeField] private LayerMask enemyLayers;
     [SerializeField] private float attackRange = 0.5f;
-    [SerializeField] private SlashFxAutoDestroy slashEffectPrefab;
+    [SerializeField] private SlashFx slashEffectPrefab;
     [SerializeField] private RangedAttackRange rangedAttackRange;
     const float RANGED_ATTACK_RANGE = 7.06f;
 
@@ -63,7 +63,7 @@ public class PlayerAttack : MonoBehaviour
 
         if (currentWeaponSlot == null || currentWeaponSlot.weaponProfile == null) return;
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(meleeAttackPoint.position, attackRange, enemyLayers);
-        SlashFxAutoDestroy slashEffect = Instantiate(slashEffectPrefab, meleeAttackPoint.position, meleeAttackPoint.rotation);
+        SlashFx slashEffect = Instantiate(slashEffectPrefab, meleeAttackPoint.position, meleeAttackPoint.rotation);
         slashEffect.gameObject.SetActive(true);
         slashEffect.SetTransform(meleeAttackPoint.transform);
         foreach (Collider2D enemy in hitEnemies)
@@ -94,7 +94,7 @@ public class PlayerAttack : MonoBehaviour
         if (meleeAttackPoint == null) meleeAttackPoint = transform.parent.Find("MeleeAttackPoint");
         if (rangedAttackRange == null) rangedAttackRange = transform.parent.GetComponentInChildren<RangedAttackRange>();
         if (enemyLayers == 0) enemyLayers = LayerMask.GetMask("EnemyDamageReceiver");
-        if (slashEffectPrefab == null) slashEffectPrefab = meleeAttackPoint.Find("SlashEffect").GetComponent<SlashFxAutoDestroy>();
+        if (slashEffectPrefab == null) slashEffectPrefab = meleeAttackPoint.Find("SlashEffect").GetComponent<SlashFx>();
 
     }
 }
