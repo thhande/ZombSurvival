@@ -7,7 +7,6 @@ public class WeaponDropContainer : WeaponContainer
     [SerializeField] private SpriteRenderer spriteRenderer;
     private void Awake()
     {
-        StartCoroutine(AutoDestroy());
     }
     private void OnValidate()
     {
@@ -31,11 +30,6 @@ public class WeaponDropContainer : WeaponContainer
         weaponProfile = newWeaponProfile;
         spriteRenderer.sprite = weaponProfile.weaponSprite;
         bulletCount = newBulletCount;
-    }
-    IEnumerator AutoDestroy()
-    {
-        yield return new WaitForSeconds(5f);
-        Destroy(gameObject);
     }
 
 

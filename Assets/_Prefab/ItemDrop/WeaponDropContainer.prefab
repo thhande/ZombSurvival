@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2118305114155255637}
   - component: {fileID: 5719305708871521262}
+  - component: {fileID: 8633384501809551941}
   - component: {fileID: 6630991322432867894}
   - component: {fileID: 6194785181214073473}
   - component: {fileID: 4746857232223235406}
@@ -50,6 +51,19 @@ MonoBehaviour:
   weaponProfile: {fileID: 0}
   bulletCount: 0
   spriteRenderer: {fileID: 6630991322432867894}
+--- !u!114 &8633384501809551941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2614512373587675513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e80bfc379b000fe4c9622d0d112468cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  container: {fileID: 0}
 --- !u!212 &6630991322432867894
 SpriteRenderer:
   m_ObjectHideFlags: 0

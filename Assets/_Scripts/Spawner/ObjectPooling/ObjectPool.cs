@@ -2,32 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool<T> : MonoBehaviour where T : MonoBehaviour
+public class ObjectPool : MonoBehaviour
 {
-    public Queue<T> objectPool = new Queue<T>();
-    public int poolSize = 10;
-    public T prefab;
+    [SerializeField] private Queue<SpawnObject> objectPool = new Queue<SpawnObject>();
+    private int poolSize = 10;
+    [SerializeField] private SpawnObject prefab;
     private void Awake()
     {
         for (int i = 0; i < poolSize; i++)
         {
-            T newObject = Instantiate(prefab);
+            SpawnObject newObject = Instantiate(prefab);
             objectPool.Enqueue(newObject);
             newObject.gameObject.SetActive(false);
         }
     }
-    public T GetObjectFromPool()
+    public SpawnObject GetObjectFromPool()
     {
         if (objectPool.Count == 0)
         {
-            T newObject = Instantiate(prefab);
+            SpawnObject newObject = Instantiate(prefab);
             return newObject;
         }
-        T objectToSpawn = objectPool.Dequeue();
+        SpawnObject objectToSpawn = objectPool.Dequeue();
         objectToSpawn.gameObject.SetActive(true);
         return objectToSpawn;
     }
-    public void ReturnObjectToPool(T objectToReturn)
+    public void ReturnObjectToPool(SpawnObject objectToReturn)
     {
         objectToReturn.gameObject.SetActive(false);
         objectPool.Enqueue(objectToReturn);
