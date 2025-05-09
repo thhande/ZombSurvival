@@ -9,4 +9,10 @@ public class SpawnObject : MonoBehaviour //control the link between the object a
     {
         this.objectPool = pool;
     }
+    public void ReturnToPool()
+    {
+        StopAllCoroutines();
+        objectPool.ReturnObjectToPool(this);
+
+    }
 }

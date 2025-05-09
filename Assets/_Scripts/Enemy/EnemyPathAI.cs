@@ -9,12 +9,13 @@ public class EnemyPathAI : MonoBehaviour
 {
     [SerializeField] private Transform target;
 
-    [SerializeField] private float speed = 400f;
+    [SerializeField] private float speed = 430f;
     [SerializeField] private float nextWaypointDistance = 0.5f;
+    [SerializeField] private SpriteRenderer spriteRenderer;
 
     Path path;
     int currentWaypoint = 0;
-    bool reachedEndOfPath = false;
+    // bool reachedEndOfPath = false;
 
     [SerializeField] Seeker seeker;
     [SerializeField] Rigidbody2D rb;
@@ -24,7 +25,13 @@ public class EnemyPathAI : MonoBehaviour
         LoadComponents();
         InvokeRepeating(nameof(UpdatePath), 0f, 0.5f);
 
+    }
 
+    private void FixedUpdate()
+    {
+
+        MoveToTarget();
+        UpdateVisual();
 
     }
 
@@ -44,26 +51,23 @@ public class EnemyPathAI : MonoBehaviour
             currentWaypoint = 0;
         }
     }
-    private void OnValidate()
+
+    private void UpdateVisual()
     {
-        LoadComponents();
+        spriteRenderer.flipX = (target.position.x - transform.position.x) < 0;
     }
-    private void LoadComponents()
-    {
-        seeker = GetComponent<Seeker>();
-        rb = GetComponent<Rigidbody2D>();
-    }
-    private void Update()
+
+    private void MoveToTarget()
     {
         if (path == null) return;
         if (currentWaypoint >= path.vectorPath.Count)
         {
-            reachedEndOfPath = true;
+            // reachedEndOfPath = true;
             return;
         }
         else
         {
-            reachedEndOfPath = false;
+            // reachedEndOfPath = false;
         }
 
         Vector2 direction = ((Vector2)path.vectorPath[currentWaypoint] - rb.position).normalized;
@@ -76,8 +80,19 @@ public class EnemyPathAI : MonoBehaviour
         {
             currentWaypoint++;
         }
+    }
 
 
+    private void OnValidate()
+    {
+        LoadComponents();
+    }
+    private void LoadComponents()
+    {
+        if (seeker == null) seeker = GetComponent<Seeker>();
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
+        if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        if (target == null) target = GameObject.FindFirstObjectByType<PlayerDamageReceiver>().transform;
     }
 
 

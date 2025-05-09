@@ -16,12 +16,7 @@ public class WeaponSpawnObj : SpawnObject
         yield return new WaitForSeconds(lifeTime);
         objectPool.ReturnObjectToPool(this);
     }
-    public void ReturnToPool()
-    {
-        StopAllCoroutines();
-        objectPool.ReturnObjectToPool(this);
 
-    }
     private void Awake()
     {
         LoadComponents();

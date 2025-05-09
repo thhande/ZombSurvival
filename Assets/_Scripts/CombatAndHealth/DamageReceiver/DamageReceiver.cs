@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Collider2D))]
+
+[RequireComponent(typeof(BoxCollider2D))]
 public class DamageReceiver : MonoBehaviour
 {
     [SerializeField] protected int health;
@@ -16,7 +17,11 @@ public class DamageReceiver : MonoBehaviour
     public void TakeDamage(int damage)
     {
         health -= damage;
-        if (health <= 0) transform.parent.gameObject.SetActive(false);
+        if (health <= 0) Die();
+    }
+    protected virtual void Die()
+    {
+        gameObject.SetActive(false);
     }
 
 

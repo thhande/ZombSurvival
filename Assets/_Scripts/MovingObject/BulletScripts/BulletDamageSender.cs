@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class BulletDamageSender : MonoBehaviour
+public class BulletDamageSender : DamageSender
 {
-    [SerializeField] private int damage = 5;
-    private void OnTriggerEnter2D(Collider2D collision)
+    public BulletDamageSender()
     {
+        damage = 10;
+    }
+
+    protected override void DealDamage(Collider2D collision)
+    {
+        base.DealDamage(collision);
         Debug.Log("Hit something");
         EnemyDamageReceiver damageReceiver = collision.GetComponent<EnemyDamageReceiver>();
         if (damageReceiver != null)
@@ -16,5 +21,6 @@ public class BulletDamageSender : MonoBehaviour
             Debug.Log("Deal " + damage + " damage to something");
             Destroy(gameObject);
         }
+
     }
 }

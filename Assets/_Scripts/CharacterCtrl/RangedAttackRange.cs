@@ -13,7 +13,6 @@ public class RangedAttackRange : MonoBehaviour
     {
         EnemyDamageReceiver enemy = collision.GetComponent<EnemyDamageReceiver>();
         if (enemy != null) enemiesInRange.Add(enemy);
-        Debug.Log("Hitbox Trigger Entered");
     }
 
     private void OnTriggerExit2D(Collider2D collision)
