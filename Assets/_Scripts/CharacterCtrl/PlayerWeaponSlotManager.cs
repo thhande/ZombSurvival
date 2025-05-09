@@ -42,12 +42,10 @@ public class PlayerWeaponSlotManager : MonoBehaviour
         if (InputManager.instance.ChangeWeaponInSlotOne())
         {
             weaponSlots[0].AddNewWeapon(weaponToPickup);
-            weaponToPickup.IsPickedUp();
         }
         else if (InputManager.instance.ChangeWeaponInSlotTwo())
         {
             weaponSlots[1].AddNewWeapon(weaponToPickup);
-            weaponToPickup.IsPickedUp();
         }
     }
 }

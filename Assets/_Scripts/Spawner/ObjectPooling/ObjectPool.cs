@@ -12,6 +12,7 @@ public class ObjectPool : MonoBehaviour
         for (int i = 0; i < poolSize; i++)
         {
             SpawnObject newObject = Instantiate(prefab);
+            newObject.SetPool(this); // Set the pool reference for the object
             objectPool.Enqueue(newObject);
             newObject.gameObject.SetActive(false);
         }

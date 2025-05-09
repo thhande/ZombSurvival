@@ -10,14 +10,15 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private PlayerWeaponSlots currentWeaponSlot;
     [SerializeField] private Transform meleeAttackPoint;
     [SerializeField] private LayerMask enemyLayers;
-    [SerializeField] private float attackRange = 0.5f;
+    [SerializeField] private float meleeAttackRange = 1f;
     [SerializeField] private SlashFx slashEffectPrefab;
     [SerializeField] private RangedAttackRange rangedAttackRange;
+
     const float RANGED_ATTACK_RANGE = 7.06f;
 
     private void OnValidate()
     {
-        Start();
+        LoadComponents();
     }
     private void Start()
     {
@@ -37,7 +38,7 @@ public class PlayerAttack : MonoBehaviour
         if (InputManager.instance.GetMeleeAttackInput()) DoMeleeAttack();
         else if (InputManager.instance.GetRangedAttackInput()) DoRangedAttack();
         if (InputManager.instance.SwitchToWeaponSlotOne()) SwitchToWeaponSlot(0);
-        if (InputManager.instance.SwitchToWeaponSlotTwo()) SwitchToWeaponSlot(1);
+        else if (InputManager.instance.SwitchToWeaponSlotTwo()) SwitchToWeaponSlot(1);
     }
 
     private void SwitchToWeaponSlot(int slotIndex)
@@ -62,7 +63,7 @@ public class PlayerAttack : MonoBehaviour
     {
 
         if (currentWeaponSlot == null || currentWeaponSlot.weaponProfile == null) return;
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(meleeAttackPoint.position, attackRange, enemyLayers);
+        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(meleeAttackPoint.position, meleeAttackRange, enemyLayers);
         SlashFx slashEffect = Instantiate(slashEffectPrefab, meleeAttackPoint.position, meleeAttackPoint.rotation);
         slashEffect.gameObject.SetActive(true);
         slashEffect.SetTransform(meleeAttackPoint.transform);
@@ -90,11 +91,12 @@ public class PlayerAttack : MonoBehaviour
 
     private void LoadComponents()
     {
-        if (weaponSlots == null) weaponSlots = new List<PlayerWeaponSlots>(GetComponentsInChildren<PlayerWeaponSlots>());
+
         if (meleeAttackPoint == null) meleeAttackPoint = transform.parent.Find("MeleeAttackPoint");
         if (rangedAttackRange == null) rangedAttackRange = transform.parent.GetComponentInChildren<RangedAttackRange>();
         if (enemyLayers == 0) enemyLayers = LayerMask.GetMask("EnemyDamageReceiver");
         if (slashEffectPrefab == null) slashEffectPrefab = meleeAttackPoint.Find("SlashEffect").GetComponent<SlashFx>();
+        if (weaponSlots.Count == 0) weaponSlots = new List<PlayerWeaponSlots>(GetComponentsInChildren<PlayerWeaponSlots>());
 
     }
 }

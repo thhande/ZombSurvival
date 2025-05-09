@@ -5,8 +5,10 @@ using UnityEngine;
 public class WeaponDropContainer : WeaponContainer
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
+    [SerializeField] private WeaponSpawnObj weaponSpawnObj;
     private void Awake()
     {
+        LoadComponents();
     }
     private void OnValidate()
     {
@@ -18,14 +20,15 @@ public class WeaponDropContainer : WeaponContainer
     }
     public void IsPickedUp()
     {
-        Destroy(gameObject);
+        weaponSpawnObj.ReturnToPool();
     }
 
     private void LoadComponents()
     {
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
+        if (weaponSpawnObj == null) weaponSpawnObj = GetComponent<WeaponSpawnObj>();
     }
-    public void OnSpawn(WeaponProfile newWeaponProfile, int newBulletCount)
+    public void UpdateInfoAndVisual(WeaponProfile newWeaponProfile, int newBulletCount)
     {
         weaponProfile = newWeaponProfile;
         spriteRenderer.sprite = weaponProfile.weaponSprite;

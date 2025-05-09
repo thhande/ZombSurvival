@@ -8,6 +8,8 @@ public class WeaponDropSpawner : SingleTypeObjectSpawner
     [SerializeField] private ObjectPool objectPool;
     [SerializeField] private float spawnRate = 10f;
     [SerializeField] List<WeaponProfile> weaponProfiles = new List<WeaponProfile>();
+    private int minSpawnCount = 1;
+    private int maxSpawnCount = 5;
     private void OnValidate()
     {
         LoadComponents();
@@ -26,7 +28,11 @@ public class WeaponDropSpawner : SingleTypeObjectSpawner
         while (true)
         {
             yield return new WaitForSeconds(spawnRate);
-            SpawnAtRandomPos();
+            for (int i = 0; i < Random.Range(minSpawnCount, maxSpawnCount); i++)
+            {
+                SpawnAtRandomPos();
+            }
+
             Debug.Log("Spawned at: " + objectPool.transform.position);
         }
     }
@@ -35,7 +41,6 @@ public class WeaponDropSpawner : SingleTypeObjectSpawner
         Vector2 spawnPos = GetRandomPosition();
         WeaponSpawnObj obj = (WeaponSpawnObj)objectPool.GetObjectFromPool();
         obj.transform.position = spawnPos;
-        obj.SetPool(objectPool);
         WeaponProfile weaponProfile = weaponProfiles[Random.Range(0, weaponProfiles.Count)];
         int newBulletCount = GenerateRandomBulletCount(weaponProfile);
         obj.OnSpawn(weaponProfile, newBulletCount);

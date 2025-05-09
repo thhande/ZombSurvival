@@ -71,17 +71,22 @@ public class PlayerWeaponSlots : WeaponContainer
         {
             weaponProfile = newWeapon.weaponProfile;
             bulletCount = newWeapon.bulletCount;
+            newWeapon.IsPickedUp();
 
 
         }
         else if (weaponProfile != newWeapon.weaponProfile || (weaponProfile.weaponType == newWeapon.weaponProfile.weaponType && weaponProfile.weaponType == WeaponType.Melee))
         {
+            WeaponProfile oldWeapon = weaponProfile;
+            int oldBulletCount = bulletCount;
             weaponProfile = newWeapon.weaponProfile;
             bulletCount = newWeapon.bulletCount;
+            newWeapon.UpdateInfoAndVisual(oldWeapon, oldBulletCount);
         }
         else
         {
             bulletCount += newWeapon.bulletCount;
+            newWeapon.IsPickedUp();
         }
 
         UpdateWeaponVisual();
