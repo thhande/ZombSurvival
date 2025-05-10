@@ -92,6 +92,10 @@ public class EnemyPathAI : MonoBehaviour
         if (seeker == null) seeker = GetComponent<Seeker>();
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+#if UNITY_EDITOR
+        // Trong Editor, đừng load player (vì có thể nó chưa hiện diện)
+        if (!Application.isPlaying) return;
+#endif
         if (target == null) target = GameObject.FindFirstObjectByType<PlayerDamageReceiver>().transform;
     }
 

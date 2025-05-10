@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 1547913609558492779}
   - component: {fileID: 7980499152312940914}
   - component: {fileID: 37868481178721803}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EnemyDamageReceiver
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -322,6 +322,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 50
   maxHealth: 50
+  spawnObject: {fileID: -7570720526684035139}
+  knockbackSys: {fileID: 740783935486946301}
 --- !u!1 &3825549904682519079
 GameObject:
   m_ObjectHideFlags: 0

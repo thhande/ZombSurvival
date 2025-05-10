@@ -73,6 +73,7 @@ public class PlayerAttack : MonoBehaviour
             if (enemyDamageReceiver != null)
             {
                 enemyDamageReceiver.TakeDamage(currentWeaponSlot.weaponProfile.meleeDamage);
+                enemyDamageReceiver.GetKnockback((enemy.transform.position - meleeAttackPoint.position).normalized);
                 Debug.Log("Enemy got " + currentWeaponSlot.weaponProfile.meleeDamage + " damage!");
             }
         }

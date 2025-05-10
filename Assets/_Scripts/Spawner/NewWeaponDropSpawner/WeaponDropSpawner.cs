@@ -52,7 +52,7 @@ public class WeaponDropSpawner : SingleTypeObjectSpawner
         {
             return 1;
         }
-        else return Random.Range(1, 20);
+        else return Random.Range(10, 50);
 
     }
 

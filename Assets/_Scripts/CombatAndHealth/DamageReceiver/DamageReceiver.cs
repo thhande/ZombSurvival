@@ -14,15 +14,17 @@ public class DamageReceiver : MonoBehaviour
         health = maxHealth;
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         health -= damage;
         if (health <= 0) Die();
     }
     protected virtual void Die()
     {
-        gameObject.SetActive(false);
+        Reset();
+        transform.parent.gameObject.SetActive(false);
     }
+
 
 
 }

@@ -5,12 +5,15 @@ using UnityEngine;
 public class EnemySpawner : MultiTypeObjectSpawner
 {
 
+    [SerializeField] private float spawnDelay = 5f;
+    [SerializeField] private int minSpawnAmount = 1;
+    [SerializeField] private int maxSpawnAmount = 5;
 
 
     protected override void Start()
     {
         base.Start();
-        SpawnEnemy(1);
+        StartCoroutine(SpawnEnemyCoroutine());
     }
 
     private ObjectPool GetRandomEnemyPoolAuto()
@@ -31,13 +34,13 @@ public class EnemySpawner : MultiTypeObjectSpawner
         return objectPoolDictionary[randomTag];
     }
 
-    IEnumerator SpawnEnemyCoroutine(int amount, float delay) //just using magic number for testing
+    IEnumerator SpawnEnemyCoroutine() //just using magic number for testing
     {
         while (true)
         {
-            int spawnNum = Random.Range(1, 5);
+            int spawnNum = Random.Range(minSpawnAmount, maxSpawnAmount + 1);
             SpawnEnemy(spawnNum);
-            yield return new WaitForSeconds(5f);
+            yield return new WaitForSeconds(spawnDelay); ;
         }
     }
     private void SpawnEnemy(int amount)
