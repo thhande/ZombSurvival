@@ -9,6 +9,15 @@ public class InputManager : MonoBehaviour
     [SerializeField] private Vector2 movementInput;
 
 
+    //UI Input
+    private bool uiMeleeAttack = false;
+    private bool uiRangedAttack = false;
+    private bool uiSwitchWeaponOne = false;
+    private bool uiSwitchWeaponTwo = false;
+    private bool uiChangeWeaponOne = false;
+    private bool uiChangeWeaponTwo = false;
+
+
     void Update()
     {
         UpdateMovementInput();
@@ -32,11 +41,21 @@ public class InputManager : MonoBehaviour
 
     public bool GetMeleeAttackInput()
     {
-        return Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0);
+        if (uiMeleeAttack)
+        {
+            uiMeleeAttack = false;
+            return true;
+        }
+        return Input.GetKeyDown(KeyCode.Space);
     }
 
     public bool GetRangedAttackInput()
     {
+        if (uiRangedAttack)
+        {
+            uiRangedAttack = false;
+            return true;
+        }
         return Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(1);
     }
 
@@ -62,20 +81,75 @@ public class InputManager : MonoBehaviour
     }
     public bool SwitchToWeaponSlotOne()
     {
+        if (uiSwitchWeaponOne)
+        {
+            uiSwitchWeaponOne = false;
+            return true;
+        }
         return Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1);
     }
     public bool SwitchToWeaponSlotTwo()
     {
+        if (uiSwitchWeaponTwo)
+        {
+            uiSwitchWeaponTwo = false;
+            return true;
+        }
         return Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2);
     }
     public bool ChangeWeaponInSlotOne()
     {
+        if (uiChangeWeaponOne)
+        {
+            uiChangeWeaponOne = false;
+            return true;
+        }
         return Input.GetKeyDown(KeyCode.Q);
     }
     public bool ChangeWeaponInSlotTwo()
     {
+        if (uiChangeWeaponTwo)
+        {
+            uiChangeWeaponTwo = false;
+            return true;
+        }
         return Input.GetKeyDown(KeyCode.E);
     }
+
+    public void SetMovementInput(float x, float y)
+    {
+        movementInput = new Vector2(x, y);
+    }
+
+
+    // UI Input
+    public void UIMeleeAttackInput()
+    {
+        uiMeleeAttack = true;
+    }
+
+    public void UIRangedAttackInput()
+    {
+        uiRangedAttack = true;
+    }
+    public void UISwitchToWeaponSlotOne()
+    {
+        uiSwitchWeaponOne = true;
+    }
+    public void UISwitchToWeaponSlotTwo()
+    {
+        uiSwitchWeaponTwo = true;
+    }
+    public void UIChangeWeaponInSlotOne()
+    {
+        uiChangeWeaponOne = true;
+    }
+    public void UIChangeWeaponInSlotTwo()
+    {
+        uiChangeWeaponTwo = true;
+    }
+
+
 
     private void Awake()
     {

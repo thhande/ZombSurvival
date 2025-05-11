@@ -7,7 +7,7 @@ public class UIInputManager : MonoBehaviour
 {
     public static UIInputManager instance;
 
-    private GameObject weaponChangeButton;
+    [SerializeField] private GameObject weaponChangeButton;
 
     private void Awake()
     {
