@@ -28,12 +28,21 @@ public class PlayerWeaponSlotManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("WeaponDrop")) weaponToPickup = collision.GetComponent<WeaponDropContainer>();
+        if (collision.CompareTag("WeaponDrop"))
+        {
+            weaponToPickup = collision.GetComponent<WeaponDropContainer>();
+            UIInputManager.instance.ShowWeaponChangeButton();
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("WeaponDrop")) weaponToPickup = null;
+        if (collision.CompareTag("WeaponDrop"))
+        {
+
+            weaponToPickup = null;
+            UIInputManager.instance.ShowWeaponChangeButton();
+        }
     }
 
     private void HandleWeaponPickupInput()
