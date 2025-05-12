@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class PlayerWeaponSlotManager : MonoBehaviour
@@ -13,7 +14,7 @@ public class PlayerWeaponSlotManager : MonoBehaviour
     }
     private void OnValidate()
     {
-        Start();
+        LoadComponents();
     }
 
     private void Start()
@@ -47,14 +48,19 @@ public class PlayerWeaponSlotManager : MonoBehaviour
 
     private void HandleWeaponPickupInput()
     {
+
         if (weaponToPickup == null) return;
         if (InputManager.instance.ChangeWeaponInSlotOne())
         {
+            UIInputManager.instance.SetWeaponSlotSprite(0, weaponToPickup.weaponProfile.weaponSprite);
             weaponSlots[0].AddNewWeapon(weaponToPickup);
+
         }
         else if (InputManager.instance.ChangeWeaponInSlotTwo())
         {
+            UIInputManager.instance.SetWeaponSlotSprite(1, weaponToPickup.weaponProfile.weaponSprite);
             weaponSlots[1].AddNewWeapon(weaponToPickup);
+
         }
     }
 }

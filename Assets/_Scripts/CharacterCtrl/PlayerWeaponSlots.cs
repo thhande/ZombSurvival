@@ -30,6 +30,7 @@ public class PlayerWeaponSlots : WeaponContainer
             {
                 bulletCount = 0;
                 RemoveWeapon();
+                UIInputManager.instance.OnWeaponRemoved(this.transform.GetSiblingIndex());
             }
         }
     }

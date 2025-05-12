@@ -29,9 +29,10 @@ public class InputManager : MonoBehaviour
 
     private void UpdateMovementInput()
     {
-        if (MireFixedJoystick.instance.Horizontal != 0 && MireFixedJoystick.instance.Vertical != 0)
+        Joystick joystick = UIInputManager.instance.joystick;
+        if (joystick.Horizontal != 0 && joystick.Vertical != 0)
         {
-            movementInput = new Vector2(MireFixedJoystick.instance.Horizontal, MireFixedJoystick.instance.Vertical);
+            movementInput = new Vector2(joystick.Horizontal, joystick.Vertical);
             if (movementInput.magnitude > 1) movementInput.Normalize();
 
         }
