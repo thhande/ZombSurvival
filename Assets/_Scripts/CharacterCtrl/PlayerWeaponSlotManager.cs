@@ -41,7 +41,7 @@ public class PlayerWeaponSlotManager : MonoBehaviour
         {
 
             weaponToPickup = null;
-            UIInputManager.instance.ShowWeaponChangeButton();
+            UIInputManager.instance.HideWeaponChangeButton();
         }
     }
 

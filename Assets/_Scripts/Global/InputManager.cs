@@ -6,7 +6,10 @@ public class InputManager : MonoBehaviour
 {
     public static InputManager instance;
 
+
     [SerializeField] private Vector2 movementInput;
+
+
 
 
     //UI Input
@@ -18,7 +21,7 @@ public class InputManager : MonoBehaviour
     private bool uiChangeWeaponTwo = false;
 
 
-    void Update()
+    private void Update()
     {
         UpdateMovementInput();
     }
@@ -26,11 +29,21 @@ public class InputManager : MonoBehaviour
 
     private void UpdateMovementInput()
     {
-        movementInput = Vector2.zero;
-        if (LeftInput()) movementInput.x -= 1;
-        if (RightInput()) movementInput.x += 1;
-        if (UpInput()) movementInput.y += 1;
-        if (DownInput()) movementInput.y -= 1;
+        if (MireFixedJoystick.instance.Horizontal != 0 && MireFixedJoystick.instance.Vertical != 0)
+        {
+            movementInput = new Vector2(MireFixedJoystick.instance.Horizontal, MireFixedJoystick.instance.Vertical);
+            if (movementInput.magnitude > 1) movementInput.Normalize();
+
+        }
+
+        else
+        {
+            movementInput = Vector2.zero;
+            if (LeftInput()) movementInput.x -= 1;
+            if (RightInput()) movementInput.x += 1;
+            if (UpInput()) movementInput.y += 1;
+            if (DownInput()) movementInput.y -= 1;
+        }
 
     }
 
@@ -116,9 +129,9 @@ public class InputManager : MonoBehaviour
         return Input.GetKeyDown(KeyCode.E);
     }
 
-    public void SetMovementInput(float x, float y)
+    public void SetMovementInput(Vector2 Dir)
     {
-        movementInput = new Vector2(x, y);
+        movementInput = Dir.normalized;
     }
 
 

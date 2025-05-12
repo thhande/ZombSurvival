@@ -36,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer()
     {
+
         movementDir = InputManager.instance.GetMovementVector().normalized;
         rb.MovePosition(rb.position + movementDir * moveSpeed * Time.deltaTime);
     }
