@@ -30,14 +30,17 @@ public class PlayerWeaponSlots : WeaponContainer
             {
                 bulletCount = 0;
                 RemoveWeapon();
-                UIInputManager.instance.OnWeaponRemoved(this.transform.GetSiblingIndex());
+
+
             }
+            else UIInputManager.instance.UpdateWeaponBulletCount(this.transform.GetSiblingIndex(), bulletCount);
         }
     }
     public void RemoveWeapon()
     {
         weaponProfile = null;
         weaponSpriteRenderer.sprite = null;
+        UIInputManager.instance.OnWeaponRemoved(this.transform.GetSiblingIndex());
     }
 
     //sprite renderer logic
@@ -91,6 +94,8 @@ public class PlayerWeaponSlots : WeaponContainer
         }
 
         UpdateWeaponVisual();
+        UIInputManager.instance.UpdateWeaponBulletCount(this.transform.GetSiblingIndex(), bulletCount);
+        UIInputManager.instance.SetWeaponSlotSprite(this.transform.GetSiblingIndex(), weaponProfile.weaponSprite);
     }
 
     //load components logic

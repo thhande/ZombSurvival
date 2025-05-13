@@ -50,17 +50,16 @@ public class PlayerWeaponSlotManager : MonoBehaviour
     {
 
         if (weaponToPickup == null) return;
+        int index = -1;
         if (InputManager.instance.ChangeWeaponInSlotOne())
         {
-            UIInputManager.instance.SetWeaponSlotSprite(0, weaponToPickup.weaponProfile.weaponSprite);
-            weaponSlots[0].AddNewWeapon(weaponToPickup);
-
+            index = 0;
         }
         else if (InputManager.instance.ChangeWeaponInSlotTwo())
         {
-            UIInputManager.instance.SetWeaponSlotSprite(1, weaponToPickup.weaponProfile.weaponSprite);
-            weaponSlots[1].AddNewWeapon(weaponToPickup);
-
+            index = 1;
         }
+        if (index != -1) weaponSlots[index].AddNewWeapon(weaponToPickup);
+
     }
 }

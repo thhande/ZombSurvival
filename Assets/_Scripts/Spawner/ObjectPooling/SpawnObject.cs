@@ -12,7 +12,7 @@ public class SpawnObject : MonoBehaviour //control the link between the object a
     public void ReturnToPool()
     {
         StopAllCoroutines();
-        objectPool.ReturnObjectToPool(this);
+        if (objectPool != null) objectPool.ReturnObjectToPool(this);
 
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,7 @@ public class UIInputManager : MonoBehaviour
     [SerializeField] private GameObject weaponChangeButton;
     [SerializeField] public MireFixedJoystick joystick;
     [SerializeField] List<Image> weaponSlotImages = new List<Image>();
+    [SerializeField] List<TextMeshProUGUI> weaponSlotBulletCount = new List<TextMeshProUGUI>();
 
     private void Awake()
     {
@@ -20,6 +22,12 @@ public class UIInputManager : MonoBehaviour
         }
         instance = this;
     }
+    private void Start()
+    {
+        LoadComponents();
+        weaponChangeButton.gameObject.SetActive(false);
+    }
+
 
     public void ShowWeaponChangeButton()
     {
@@ -30,22 +38,15 @@ public class UIInputManager : MonoBehaviour
         weaponChangeButton.gameObject.SetActive(false);
     }
 
-    private void OnValidate()
-    {
-        LoadComponents();
-    }
+
     public void OnWeaponRemoved(int index)
     {
         if (index < 0 || index >= weaponSlotImages.Count) return;
         weaponSlotImages[index].sprite = null;
         weaponSlotImages[index].gameObject.SetActive(false);
+        UpdateWeaponBulletCount(index, 0);
     }
 
-    private void Start()
-    {
-        LoadComponents();
-        weaponChangeButton.gameObject.SetActive(false);
-    }
 
     public void SetWeaponSlotSprite(int index, Sprite sprite)
     {
@@ -55,11 +56,24 @@ public class UIInputManager : MonoBehaviour
 
     }
 
+    public void UpdateWeaponBulletCount(int index, int bulletCount)
+    {
+        if (index < 0 || index >= weaponSlotBulletCount.Count) return;
+        weaponSlotBulletCount[index].text = bulletCount.ToString();
+        weaponSlotBulletCount[index].gameObject.SetActive(true);
+    }
+
+    private void OnValidate()
+    {
+        LoadComponents();
+    }
+
     private void LoadComponents()
     {
         if (weaponChangeButton == null) weaponChangeButton = transform.Find("WeaponChange").gameObject;
         if (joystick == null) joystick = transform.Find("Joystick").GetComponent<MireFixedJoystick>();
         if (weaponSlotImages.Count == 0) LoadSlotImages();
+        if (weaponSlotBulletCount.Count == 0) LoadSlotBulletCount();
 
     }
     private void LoadSlotImages()
@@ -91,7 +105,33 @@ public class UIInputManager : MonoBehaviour
 
         Debug.Log($"✅ Loaded {weaponSlotImages.Count} weapon slot images.");
     }
+    private void LoadSlotBulletCount()
+    {
+        weaponSlotBulletCount.Clear();
 
+        Transform weaponSwitch = transform.Find("WeaponSwitch");
+        if (weaponSwitch == null)
+        {
+            Debug.LogWarning("cannnot find WeaponSwitch");
+            return;
+        }
+
+        foreach (Transform slot in weaponSwitch) // Slot1, Slot2
+        {
+            TextMeshProUGUI bulletCount = slot.GetComponentInChildren<TextMeshProUGUI>();
+            if (bulletCount != null)
+            {
+                weaponSlotBulletCount.Add(bulletCount);
+                bulletCount.gameObject.SetActive(false);
+            }
+
+
+        }
+    }
 
 
 }
+
+
+
+

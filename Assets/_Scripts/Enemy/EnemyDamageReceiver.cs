@@ -7,6 +7,7 @@ public class EnemyDamageReceiver : DamageReceiver
 {
     [SerializeField] private SpawnObject spawnObject;
     [SerializeField] private Knockback knockbackSys;
+    [SerializeField] private Animator anim;
     public EnemyDamageReceiver()
     {
         health = 10;
@@ -26,6 +27,7 @@ public class EnemyDamageReceiver : DamageReceiver
     {
         base.TakeDamage(damage);
         Debug.Log("Deal " + damage + " damage to enemy");
+        anim.SetTrigger("Hit");
     }
 
     public void GetKnockback(Vector2 knockbackDir)
@@ -41,6 +43,7 @@ public class EnemyDamageReceiver : DamageReceiver
     {
         if (knockbackSys == null) knockbackSys = transform.parent.GetComponent<Knockback>();
         spawnObject = transform.parent.GetComponent<SpawnObject>();
+        if (anim == null) anim = transform.parent.GetComponentInChildren<Animator>();
     }
 
 
