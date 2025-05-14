@@ -8,6 +8,8 @@ public class DamageReceiver : MonoBehaviour
 {
     [SerializeField] protected int health;
     [SerializeField] protected int maxHealth;
+    public int Health => health;
+    public int MaxHealth => maxHealth;
 
     public void Reset()
     {
@@ -17,11 +19,15 @@ public class DamageReceiver : MonoBehaviour
     public virtual void TakeDamage(int damage)
     {
         health -= damage;
-        if (health <= 0) Die();
+        if (health <= 0)
+        {
+            health = 0;
+            Die();
+        }
     }
     protected virtual void Die()
     {
-        Reset();
+
         transform.parent.gameObject.SetActive(false);
     }
 

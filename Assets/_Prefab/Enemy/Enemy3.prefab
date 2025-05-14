@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d3d6d19b42a4b4fb92d7d331419211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 15
   knockbackSys: {fileID: 4334323819684317789}
 --- !u!1 &7304342336721325299
 GameObject:
@@ -430,3 +430,4 @@ MonoBehaviour:
   maxHealth: 50
   spawnObject: {fileID: 8345567767337115509}
   knockbackSys: {fileID: 4334323819684317789}
+  anim: {fileID: 8544068198172930012}

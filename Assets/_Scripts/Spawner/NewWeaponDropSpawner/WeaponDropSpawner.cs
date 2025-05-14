@@ -8,8 +8,9 @@ public class WeaponDropSpawner : SingleTypeObjectSpawner
     [SerializeField] private ObjectPool objectPool;
     [SerializeField] private float spawnRate = 10f;
     [SerializeField] List<WeaponProfile> weaponProfiles = new List<WeaponProfile>();
-    private int minSpawnCount = 1;
-    private int maxSpawnCount = 5;
+    private int minSpawnCount = 2;
+    private int maxSpawnCount = 15;
+
     private void OnValidate()
     {
         LoadComponents();

@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemySpawner : MultiTypeObjectSpawner
 {
 
-    [SerializeField] private float spawnDelay = 5f;
+    [SerializeField] private float spawnDelay = 15f;
     [SerializeField] private int minSpawnAmount = 1;
     [SerializeField] private int maxSpawnAmount = 5;
 
@@ -14,6 +14,7 @@ public class EnemySpawner : MultiTypeObjectSpawner
     {
         base.Start();
         StartCoroutine(SpawnEnemyCoroutine());
+
     }
 
     private ObjectPool GetRandomEnemyPoolAuto()

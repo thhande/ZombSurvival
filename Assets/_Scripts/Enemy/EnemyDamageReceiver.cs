@@ -20,6 +20,7 @@ public class EnemyDamageReceiver : DamageReceiver
     protected override void Die()
     {
         base.Die();
+        Reset();
         if (spawnObject != null) spawnObject.ReturnToPool();
     }
 

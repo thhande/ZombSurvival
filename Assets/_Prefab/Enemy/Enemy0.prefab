@@ -94,6 +94,7 @@ MonoBehaviour:
   maxHealth: 50
   spawnObject: {fileID: 5282455732399346307}
   knockbackSys: {fileID: 3704498048042836279}
+  anim: {fileID: 4154049233859559029}
 --- !u!1 &5745093682747573636
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 400
+  speed: 200
   nextWaypointDistance: 0.5
   spriteRenderer: {fileID: 5851100232119731171}
   seeker: {fileID: 8083541525894996146}
@@ -322,7 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01d3d6d19b42a4b4fb92d7d331419211, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 10
+  damage: 5
   knockbackSys: {fileID: 3704498048042836279}
 --- !u!1 &6715226530445099148
 GameObject:
