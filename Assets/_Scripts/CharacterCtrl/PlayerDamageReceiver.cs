@@ -17,6 +17,7 @@ public class PlayerDamageReceiver : DamageReceiver
     {
         base.Die();
         transform.parent.gameObject.SetActive(false);
+        GameManager.instance.GameOver();
     }
     public override void TakeDamage(int damage)
     {

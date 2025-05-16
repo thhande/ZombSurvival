@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
+using Pathfinding;
 
 public class InfiniteWorldGenerator : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class InfiniteWorldGenerator : MonoBehaviour
     public TileBase[] obstacleTiles;
 
     public Transform player;
-    public int renderRadius = 15;
+    public int renderRadius = 65;
 
     private Vector3Int lastPlayerTilePos;
     private HashSet<Vector3Int> generatedTiles = new HashSet<Vector3Int>();
@@ -56,6 +57,7 @@ public class InfiniteWorldGenerator : MonoBehaviour
                     TileBase groundTile = groundTiles[Random.Range(0, groundTiles.Length)];
                     groundTilemap.SetTile(pos, groundTile);
                 }
+
             }
         }
     }

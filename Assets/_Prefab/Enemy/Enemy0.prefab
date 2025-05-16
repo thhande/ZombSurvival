@@ -95,6 +95,7 @@ MonoBehaviour:
   spawnObject: {fileID: 5282455732399346307}
   knockbackSys: {fileID: 3704498048042836279}
   anim: {fileID: 4154049233859559029}
+  reward: 5
 --- !u!1 &5745093682747573636
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +203,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 200
+  speed: 300
   nextWaypointDistance: 0.5
   spriteRenderer: {fileID: 5851100232119731171}
   seeker: {fileID: 8083541525894996146}

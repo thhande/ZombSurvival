@@ -8,6 +8,7 @@ public class EnemyDamageReceiver : DamageReceiver
     [SerializeField] private SpawnObject spawnObject;
     [SerializeField] private Knockback knockbackSys;
     [SerializeField] private Animator anim;
+    [SerializeField] private int reward = 5;
     public EnemyDamageReceiver()
     {
         health = 10;
@@ -21,7 +22,9 @@ public class EnemyDamageReceiver : DamageReceiver
     {
         base.Die();
         Reset();
+        GameManager.instance.AddScore(reward);
         if (spawnObject != null) spawnObject.ReturnToPool();
+
     }
 
     public override void TakeDamage(int damage)

@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemySpawner : MultiTypeObjectSpawner
 {
 
-    [SerializeField] private float spawnDelay = 15f;
+    [SerializeField] private float spawnDelay = 10f;
     [SerializeField] private int minSpawnAmount = 1;
     [SerializeField] private int maxSpawnAmount = 5;
 
@@ -35,13 +36,24 @@ public class EnemySpawner : MultiTypeObjectSpawner
         return objectPoolDictionary[randomTag];
     }
 
-    IEnumerator SpawnEnemyCoroutine() //just using magic number for testing
+    IEnumerator SpawnEnemyCoroutine()
     {
         while (true)
         {
+            UpdateSpawnCountByWave();
             int spawnNum = Random.Range(minSpawnAmount, maxSpawnAmount + 1);
             SpawnEnemy(spawnNum);
-            yield return new WaitForSeconds(spawnDelay); ;
+            GameManager.instance.EnemyWaveUpdate();
+            yield return new WaitForSeconds(spawnDelay);
+
+        }
+    }
+    private void UpdateSpawnCountByWave()
+    {
+        if (GameManager.instance.wave != 0 && GameManager.instance.wave % 10 == 0)
+        {
+            maxSpawnAmount++;
+            spawnDelay -= 10 / (GameManager.instance.wave * 2);
         }
     }
     private void SpawnEnemy(int amount)

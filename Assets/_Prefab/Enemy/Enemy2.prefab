@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 300
+  speed: 400
   nextWaypointDistance: 0.5
   spriteRenderer: {fileID: 8748086509164001634}
   seeker: {fileID: 4363099384326906791}
@@ -325,6 +325,7 @@ MonoBehaviour:
   spawnObject: {fileID: 4832852037270028793}
   knockbackSys: {fileID: 6890699196324639969}
   anim: {fileID: 4470251701352812794}
+  reward: 20
 --- !u!1 &7824211951155624480
 GameObject:
   m_ObjectHideFlags: 0
