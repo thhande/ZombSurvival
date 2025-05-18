@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
-    [SerializeField] UIManager uiManager;
+    [SerializeField] GameObject charPrefab;
+    [SerializeField] GameObject player;
+
+
     public int score = 0;
     public int highScore;
 
@@ -34,12 +37,57 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        ResetValue();
+        if (charPrefab != null) Instantiate(charPrefab);
     }
 
+    public void ResetValue()
+    {
+        wave = 0;
+        score = 0;
+    }
+
+    public void StartNewGame()
+    {
+        if (charPrefab == null) return;
+        isGameActive = true;
+        Instantiate(charPrefab);
+        SceneManager.LoadScene(1);
+
+    }
     public void GameOver()
     {
+        isGameActive = false;
+        ResetValue();
         OnGameOver();
     }
+
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.buildIndex == 1 && charPrefab != null)
+        {
+            Debug.Log("✅ Scene đã load xong, giờ mới spawn player");
+            player = Instantiate(charPrefab, Vector3.zero, Quaternion.identity);
+            var healthbar = GameObject.FindAnyObjectByType<Healthbar>();
+            healthbar.SetPlayer(player.transform.GetComponentInChildren<PlayerDamageReceiver>());
+        }
+    }
+    public void SetPlayer(GameObject playerPrefab)
+    {
+        charPrefab = playerPrefab;
+    }
+
 
 
     private void Awake()
@@ -50,11 +98,12 @@ public class GameManager : MonoBehaviour
             instance = this;
             LoadComponent();
         }
+        DontDestroyOnLoad(gameObject);
     }
 
 
     private void LoadComponent()
     {
-        if (uiManager == null) uiManager = GameObject.FindObjectOfType<UIManager>();
+        return;
     }
 }

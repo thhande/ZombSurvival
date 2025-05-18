@@ -19,6 +19,7 @@ public class InfiniteWorldGenerator : MonoBehaviour
 
     void Start()
     {
+        if (player == null) player = GameObject.FindAnyObjectByType<PlayerMovement>().transform;
         lastPlayerTilePos = groundTilemap.WorldToCell(player.position);
         GenerateTilesAround(lastPlayerTilePos);
     }

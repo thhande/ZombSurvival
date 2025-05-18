@@ -17,9 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        anim = GetComponentInChildren<Animator>();
-        playerSprite = GetComponentInChildren<SpriteRenderer>();
+        LoadComponents();
     }
 
 
@@ -47,6 +45,19 @@ public class PlayerMovement : MonoBehaviour
         if (movementDir.x != 0) playerSprite.flipX = movementDir.x <= 0;
         anim.SetFloat(ANIM_SPEED, movementDir.magnitude);
 
+    }
+
+
+    private void OnValidate()
+    {
+        LoadComponents();
+    }
+
+    private void LoadComponents()
+    {
+        if (rb == null) rb = GetComponent<Rigidbody2D>();
+        if (anim == null) anim = GetComponentInChildren<Animator>();
+        if (playerSprite == null) playerSprite = GetComponentInChildren<SpriteRenderer>();
     }
 
 

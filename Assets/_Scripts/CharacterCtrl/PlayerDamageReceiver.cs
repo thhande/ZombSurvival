@@ -6,7 +6,7 @@ public class PlayerDamageReceiver : DamageReceiver
 {
     public event System.Action OnHealthChange;
 
-    private void Awake()
+    private void Start()
     {
         health = 40;
         maxHealth = 40;

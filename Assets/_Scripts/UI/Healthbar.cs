@@ -17,6 +17,22 @@ public class Healthbar : MonoBehaviour
         PlayerHealthChange();
     }
 
+    private void Start()
+    {
+        LoadComponents();
+        playerHealth.OnHealthChange += PlayerHealthChange;
+        PlayerHealthChange();
+    }
+
+    public void SetPlayer(PlayerDamageReceiver newplayerHealth)
+    {
+        this.playerHealth = newplayerHealth;
+        playerHealth.OnHealthChange += PlayerHealthChange;
+        PlayerHealthChange();
+    }
+
+
+
 
 
 
@@ -34,6 +50,6 @@ public class Healthbar : MonoBehaviour
     }
     private void OnValidate()
     {
-        LoadComponents();
+
     }
 }

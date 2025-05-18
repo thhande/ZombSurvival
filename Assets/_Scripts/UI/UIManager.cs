@@ -8,8 +8,14 @@ public class UIManager : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI waveCount;
-    [SerializeField] GameObject gameOverScreen;
+
     [SerializeField] UIInputManager uIInput;
+
+
+    [SerializeField] GameObject gameOverScreen;
+    [SerializeField] Button restartButton;
+
+
 
     private void Start()
     {
@@ -17,6 +23,8 @@ public class UIManager : MonoBehaviour
         GameManager.instance.OnScoreChange += UpdateScoreText;
         GameManager.instance.OnWaveChange += UpdateWaveCount;
         GameManager.instance.OnGameOver += GameOverUIUpdate;
+
+        restartButton.onClick.AddListener(GameManager.instance.Restart);
 
         UpdateScoreText();
     }
@@ -29,6 +37,16 @@ public class UIManager : MonoBehaviour
     public void UpdateWaveCount()
     {
         waveCount.text = "wave :" + GameManager.instance.wave.ToString();
+    }
+
+    private void OnDestroy()
+    {
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.OnScoreChange -= UpdateScoreText;
+            GameManager.instance.OnWaveChange -= UpdateWaveCount;
+            GameManager.instance.OnGameOver -= GameOverUIUpdate;
+        }
     }
 
     public void GameOverUIUpdate()
@@ -48,8 +66,10 @@ public class UIManager : MonoBehaviour
             gameOverScreen.SetActive(false);
 
         }
+        if (restartButton == null) restartButton = gameOverScreen.GetComponentInChildren<Button>();
         if (uIInput == null) uIInput = transform.GetComponentInChildren<UIInputManager>();
     }
+
 
 
     private void OnValidate()

@@ -12,7 +12,7 @@ public class MovingCamera : MonoBehaviour
 
     void Start()
     {
-        LoadComponents();
+        LoadTargetTransform();
     }
 
     // Update is called once per frame
@@ -20,14 +20,14 @@ public class MovingCamera : MonoBehaviour
     {
         FollowTarget();
     }
-    private void LoadComponents()
+    private void LoadTargetTransform()
     {
         target = GameObject.FindObjectOfType<PlayerMovement>().transform;
     }
 
     private void OnValidate()
     {
-        LoadComponents();
+
     }
 
     private void FollowTarget()
