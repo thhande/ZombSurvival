@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Collections.Generic;
 using Pathfinding;
+using System.Collections;
 
 public class InfiniteWorldGenerator : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class InfiniteWorldGenerator : MonoBehaviour
         if (player == null) player = GameObject.FindAnyObjectByType<PlayerMovement>().transform;
         lastPlayerTilePos = groundTilemap.WorldToCell(player.position);
         GenerateTilesAround(lastPlayerTilePos);
+        StartCoroutine(DelayedScan());
     }
 
     void Update()
@@ -61,5 +63,10 @@ public class InfiniteWorldGenerator : MonoBehaviour
 
             }
         }
+    }
+    IEnumerator DelayedScan()
+    {
+        yield return new WaitForEndOfFrame(); // hoặc yield return null;
+        AstarPath.active.Scan();
     }
 }

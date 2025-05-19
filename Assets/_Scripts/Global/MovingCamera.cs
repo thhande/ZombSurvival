@@ -8,7 +8,7 @@ public class MovingCamera : MonoBehaviour
 {
     public Transform target;
     [SerializeField] private float moveSpeed = 15f;
-    [SerializeField] private float maxDis = 1.5f;
+
 
     void Start()
     {
@@ -33,12 +33,9 @@ public class MovingCamera : MonoBehaviour
     private void FollowTarget()
     {
         if (target == null) return;
-        if (transform.position == target.transform.position) return;
-        Vector2 dir = target.transform.position - transform.position;
-        if (dir.magnitude > maxDis)
-        {
-            transform.Translate(dir.normalized * moveSpeed * Time.deltaTime);
-        }
+
+        Vector3 targetPosition = new Vector3(target.position.x, target.position.y, transform.position.z);
+        transform.position = Vector3.Lerp(transform.position, targetPosition, moveSpeed * Time.deltaTime);
 
     }
 }
