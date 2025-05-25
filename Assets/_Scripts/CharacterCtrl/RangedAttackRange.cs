@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedAttackRange : MonoBehaviour
+public class RangedAttackRange : MonoBehaviour, IData
 {
     [SerializeField] private List<EnemyDamageReceiver> enemiesInRange = new List<EnemyDamageReceiver>();
     [SerializeField] private Transform playerTransform;

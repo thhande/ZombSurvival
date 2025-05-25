@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnObject : MonoBehaviour //control the link between the object and the pool
 {
-    protected ObjectPool objectPool;
+    [SerializeField] protected ObjectPool objectPool;
     public void SetPool(ObjectPool pool)
     {
         this.objectPool = pool;

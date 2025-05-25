@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShortcutManagement;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IData
 {
     [SerializeField] private float moveSpeed = 10f;
 
@@ -59,6 +58,7 @@ public class PlayerMovement : MonoBehaviour
         if (anim == null) anim = GetComponentInChildren<Animator>();
         if (playerSprite == null) playerSprite = GetComponentInChildren<SpriteRenderer>();
     }
+
 
 
 

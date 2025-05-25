@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour
+public class PlayerAttack : MonoBehaviour, IData
 {
 
+    private PlayerCore coreFighter;
     [SerializeField] private List<PlayerWeaponSlots> weaponSlots = new List<PlayerWeaponSlots>();
     [SerializeField] private PlayerWeaponSlots currentWeaponSlot;
     [SerializeField] private Transform meleeAttackPoint;
@@ -15,11 +16,12 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField] private RangedAttackRange rangedAttackRange;
 
     const float RANGED_ATTACK_RANGE = 7.06f;
-
+#if UNITY_EDITOR
     private void OnValidate()
     {
         LoadComponents();
     }
+#endif
     private void Start()
     {
         LoadComponents();
@@ -93,11 +95,19 @@ public class PlayerAttack : MonoBehaviour
     private void LoadComponents()
     {
 
-        if (meleeAttackPoint == null) meleeAttackPoint = transform.parent.Find("MeleeAttackPoint");
-        if (rangedAttackRange == null) rangedAttackRange = transform.parent.GetComponentInChildren<RangedAttackRange>();
+        // if (meleeAttackPoint == null) meleeAttackPoint = transform.parent.Find("MeleeAttackPoint");
+        // if (rangedAttackRange == null) rangedAttackRange = transform.parent.GetComponentInChildren<RangedAttackRange>();
         if (enemyLayers == 0) enemyLayers = LayerMask.GetMask("EnemyDamageReceiver");
-        if (slashEffectPrefab == null) slashEffectPrefab = meleeAttackPoint.Find("SlashEffect").GetComponent<SlashFx>();
+
         if (weaponSlots.Count == 0) weaponSlots = new List<PlayerWeaponSlots>(GetComponentsInChildren<PlayerWeaponSlots>());
 
+    }
+
+    public void Init(PlayerCore core)
+    {
+        coreFighter = core;
+        if (meleeAttackPoint == null) meleeAttackPoint = coreFighter.MeleeAttackPoint;
+        if (slashEffectPrefab == null) slashEffectPrefab = meleeAttackPoint.Find("SlashEffect").GetComponent<SlashFx>();
+        if (rangedAttackRange == null) rangedAttackRange = coreFighter.RangedAttackRange;
     }
 }

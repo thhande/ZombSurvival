@@ -70,7 +70,7 @@ public class InputManager : MonoBehaviour
             uiRangedAttack = false;
             return true;
         }
-        return Input.GetKeyDown(KeyCode.Z) || Input.GetMouseButtonDown(1);
+        return Input.GetKeyDown(KeyCode.Z);
     }
 
     private bool LeftInput()
