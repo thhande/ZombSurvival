@@ -28,13 +28,14 @@ public class InfiniteWorldGenerator : MonoBehaviour
 
     void Update()
     {
-        Vector3Int currentPlayerTilePos = groundTilemap.WorldToCell(player.position);
 
-        if (Vector3Int.Distance(currentPlayerTilePos, lastPlayerTilePos) >= 1)
-        {
-            lastPlayerTilePos = currentPlayerTilePos;
-            GenerateTilesAround(currentPlayerTilePos);
-        }
+        // Vector3Int currentPlayerTilePos = groundTilemap.WorldToCell(player.position);
+
+        // if (Vector3Int.Distance(currentPlayerTilePos, lastPlayerTilePos) >= 1)
+        // {
+        //     lastPlayerTilePos = currentPlayerTilePos;
+        //     GenerateTilesAround(currentPlayerTilePos);
+        // }
     }
 
     void GenerateTilesAround(Vector3Int center)

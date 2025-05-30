@@ -12,6 +12,7 @@ public class PlayerCore : MonoBehaviour
     [SerializeField] private RangedAttackRange rangedAttackRange;
     [SerializeField] private Transform meleeAttackPoint;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerBuffs buffMng;
 
 
 
@@ -21,6 +22,8 @@ public class PlayerCore : MonoBehaviour
     public RangedAttackRange RangedAttackRange => rangedAttackRange;
     public Transform MeleeAttackPoint => meleeAttackPoint;
     public PlayerMovement PlayerMovement => playerMovement;
+    public PlayerBuffs BuffMng => buffMng;
+
 
 
 
@@ -46,7 +49,8 @@ public class PlayerCore : MonoBehaviour
         if (playerVisual == null) playerVisual = transform.GetComponentInChildren<Animator>();
         if (rangedAttackRange == null) rangedAttackRange = transform.GetComponentInChildren<RangedAttackRange>();
         if (meleeAttackPoint == null) meleeAttackPoint = transform.Find("MeleeAttackPoint");
-        if (playerMovement == null) playerMovement = GetComponent<PlayerMovement>();
+        if (playerMovement == null) playerMovement = GetComponent<PlayerMovement>(); playerMovement.Init(this);
+        if (buffMng == null) buffMng = transform.GetComponentInChildren<PlayerBuffs>();
     }
 
 

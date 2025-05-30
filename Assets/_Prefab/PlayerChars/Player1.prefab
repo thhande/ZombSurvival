@@ -217,6 +217,7 @@ GameObject:
   - component: {fileID: 6731590955872342267}
   - component: {fileID: 1667475331882803854}
   - component: {fileID: 5379215781965154023}
+  - component: {fileID: 4363946332654944284}
   m_Layer: 0
   m_Name: Player1
   m_TagString: Untagged
@@ -257,9 +258,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 10
-  rb: {fileID: 0}
-  anim: {fileID: 0}
-  playerSprite: {fileID: 0}
+  rb: {fileID: 5379215781965154023}
+  anim: {fileID: 9106856703069412034}
+  playerSprite: {fileID: 5030283371160628698}
 --- !u!50 &5379215781965154023
 Rigidbody2D:
   serializedVersion: 4
@@ -287,6 +288,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &4363946332654944284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2703308481153089817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58acaaba749e4104cbc1b54d2f75bc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCombat: {fileID: 1979911697532172393}
+  damageReceiver: {fileID: 894566956536352218}
+  playerVisual: {fileID: 9106856703069412034}
+  rangedAttackRange: {fileID: 2207695469111319977}
+  meleeAttackPoint: {fileID: 1241998723792582594}
+  playerMovement: {fileID: 1667475331882803854}
 --- !u!1 &2724530329428216611
 GameObject:
   m_ObjectHideFlags: 0

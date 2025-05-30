@@ -90,12 +90,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8e336020ca8f741bcec3a925a96ff3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
-  maxHealth: 50
+  health: 10
+  maxHealth: 10
   spawnObject: {fileID: 5282455732399346307}
   knockbackSys: {fileID: 3704498048042836279}
   anim: {fileID: 4154049233859559029}
   reward: 5
+  core: {fileID: 65489903947404098}
 --- !u!1 &5745093682747573636
 GameObject:
   m_ObjectHideFlags: 0
@@ -110,6 +111,7 @@ GameObject:
   - component: {fileID: 8697230866777255568}
   - component: {fileID: 3704498048042836279}
   - component: {fileID: 5282455732399346307}
+  - component: {fileID: 65489903947404098}
   m_Layer: 0
   m_Name: Enemy0
   m_TagString: Untagged
@@ -234,6 +236,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6805d65e4b258c74e9ebcefd98da99d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectPool: {fileID: 0}
+--- !u!114 &65489903947404098
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5745093682747573636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76ed076e41fa6a344a579ab8c01ac829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageReceiver: {fileID: 3011329023308210328}
+  damageSender: {fileID: 6161357949089479070}
+  knockbackSys: {fileID: 3704498048042836279}
+  spawnCtrl: {fileID: 5282455732399346307}
+  visual: {fileID: 5851100232119731171}
+  anim: {fileID: 4154049233859559029}
 --- !u!1 &6697502022641444236
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 5
   knockbackSys: {fileID: 3704498048042836279}
+  core: {fileID: 65489903947404098}
 --- !u!1 &6715226530445099148
 GameObject:
   m_ObjectHideFlags: 0

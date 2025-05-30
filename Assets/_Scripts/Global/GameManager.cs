@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour
 
     public void Restart()
     {
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         ResetValue();
         isGameActive = true;
@@ -53,6 +54,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetValue()
     {
+        StopAllCoroutines();
         playTime = defaultTimeLeft;
         wave = 0;
         score = 0;
@@ -92,7 +94,7 @@ public class GameManager : MonoBehaviour
     {
         if (scene.buildIndex == 1 && charPrefab != null)
         {
-            Debug.Log("Scene đã load xong, giờ mới spawn player");
+            // Debug.Log("Scene đã load xong, giờ mới spawn player");
             player = Instantiate(charPrefab, Vector3.zero, Quaternion.identity);
             var healthbar = GameObject.FindAnyObjectByType<Healthbar>();
             healthbar.SetPlayer(player.transform.GetComponentInChildren<PlayerDamageReceiver>());
@@ -114,7 +116,7 @@ public class GameManager : MonoBehaviour
         while (isGameActive)
         {
             yield return new WaitForSeconds(1);
-            playTime -= 1;
+            playTime -= 0.5f;
             onTimePasses();
             if (playTime <= 0)
             {

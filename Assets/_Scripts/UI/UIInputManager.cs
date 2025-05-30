@@ -35,7 +35,7 @@ public class UIInputManager : MonoBehaviour
     }
     public void HideWeaponChangeButton()
     {
-        weaponChangeButton.gameObject.SetActive(false);
+        if (weaponChangeButton != null) weaponChangeButton.gameObject.SetActive(false);
     }
 
 
@@ -65,7 +65,9 @@ public class UIInputManager : MonoBehaviour
 
     private void OnValidate()
     {
+#if UNITY_EDITOR
         LoadComponents();
+#endif
     }
 
     private void LoadComponents()
@@ -83,7 +85,7 @@ public class UIInputManager : MonoBehaviour
         Transform weaponSwitch = transform.Find("WeaponSwitch");
         if (weaponSwitch == null)
         {
-            Debug.LogWarning("❌ Không tìm thấy WeaponSwitch");
+            Debug.LogWarning(" Không tìm thấy WeaponSwitch");
             return;
         }
 

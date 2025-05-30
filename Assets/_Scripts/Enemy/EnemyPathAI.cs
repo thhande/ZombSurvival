@@ -29,7 +29,7 @@ public class EnemyPathAI : MonoBehaviour
 
     private void FixedUpdate()
     {
-
+        if (target == null) return;
         MoveToTarget();
         UpdateVisual();
 

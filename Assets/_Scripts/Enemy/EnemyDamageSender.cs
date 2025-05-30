@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDamageSender : DamageSender
+public class EnemyDamageSender : DamageSender, IData
 {
     [SerializeField] private Knockback knockbackSys;
+    [SerializeField] private EnemyCore core;
 
     public EnemyDamageSender()
     {
@@ -26,12 +27,18 @@ public class EnemyDamageSender : DamageSender
 
     }
 
-    private void OnValidate()
+    // private void OnValidate()
+    // {
+    //     LoadComponents();
+    // }
+    // private void LoadComponents()
+    // {
+    //     if (knockbackSys == null) knockbackSys = transform.parent.GetComponent<Knockback>();
+    // }
+
+    public void Init(EnemyCore Core)
     {
-        LoadComponents();
-    }
-    private void LoadComponents()
-    {
-        if (knockbackSys == null) knockbackSys = transform.parent.GetComponent<Knockback>();
+        core = Core;
+        this.knockbackSys = core.KnockbackSys;
     }
 }

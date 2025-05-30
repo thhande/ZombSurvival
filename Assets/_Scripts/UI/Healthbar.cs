@@ -13,7 +13,7 @@ public class Healthbar : MonoBehaviour
     private void Awake()
     {
         LoadComponents();
-        playerHealth.OnHealthChange += PlayerHealthChange;
+        if (playerHealth != null) playerHealth.OnHealthChange += PlayerHealthChange;
         PlayerHealthChange();
     }
 

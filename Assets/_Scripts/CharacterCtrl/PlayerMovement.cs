@@ -9,10 +9,17 @@ public class PlayerMovement : MonoBehaviour, IData
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private Animator anim;
     [SerializeField] private SpriteRenderer playerSprite;
+    [SerializeField] private PlayerBuffs buff;
+    [SerializeField] PlayerCore core;
 
     const string ANIM_SPEED = "Speed";
 
     Vector2 movementDir;
+
+    private void Awake()
+    {
+        LoadComponents();
+    }
 
     private void Start()
     {
@@ -49,7 +56,10 @@ public class PlayerMovement : MonoBehaviour, IData
 
     private void OnValidate()
     {
+
+#if UNITY_EDITOR
         LoadComponents();
+#endif
     }
 
     private void LoadComponents()
@@ -57,6 +67,12 @@ public class PlayerMovement : MonoBehaviour, IData
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         if (anim == null) anim = GetComponentInChildren<Animator>();
         if (playerSprite == null) playerSprite = GetComponentInChildren<SpriteRenderer>();
+    }
+
+    public void Init(PlayerCore Core)
+    {
+        this.core = Core;
+        this.buff = core.BuffMng;
     }
 
 

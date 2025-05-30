@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2427746188853355341}
   - component: {fileID: 740783935486946301}
   - component: {fileID: -7570720526684035139}
+  - component: {fileID: 8370110585229620193}
   m_Layer: 0
   m_Name: Enemy1
   m_TagString: Untagged
@@ -138,6 +139,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6805d65e4b258c74e9ebcefd98da99d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectPool: {fileID: 0}
+--- !u!114 &8370110585229620193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 601011694093276197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76ed076e41fa6a344a579ab8c01ac829, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageReceiver: {fileID: 37868481178721803}
+  damageSender: {fileID: 1571851167841705057}
+  knockbackSys: {fileID: 740783935486946301}
+  spawnCtrl: {fileID: -7570720526684035139}
+  visual: {fileID: 8660384057268371706}
+  anim: {fileID: 1525766550896857556}
 --- !u!1 &1883379577615757265
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,6 +250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   knockbackSys: {fileID: 740783935486946301}
+  core: {fileID: 8370110585229620193}
 --- !u!1 &3146246718791617355
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +347,7 @@ MonoBehaviour:
   knockbackSys: {fileID: 740783935486946301}
   anim: {fileID: 1525766550896857556}
   reward: 10
+  core: {fileID: 8370110585229620193}
 --- !u!1 &3825549904682519079
 GameObject:
   m_ObjectHideFlags: 0
