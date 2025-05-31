@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,6 +19,11 @@ public class UIManager : MonoBehaviour
 
 
 
+    [SerializeField] List<Image> buffIcons;
+    [SerializeField] PlayerBuffs playerBuffs;
+
+
+
     private void Start()
     {
         LoadComponent();
@@ -25,6 +31,7 @@ public class UIManager : MonoBehaviour
         GameManager.instance.OnWaveChange += UpdateWaveCount;
         GameManager.instance.OnGameOver += GameOverUIUpdate;
         GameManager.instance.onTimePasses += UpdateTimePasses;
+        playerBuffs.OnBuffChanged += UpDateBuffIcons;
 
         // restartButton.onClick.AddListener(GameManager.instance.Restart);
 
@@ -46,6 +53,24 @@ public class UIManager : MonoBehaviour
         timeCount.text = GameManager.instance.playTime.ToString();
     }
 
+
+    private void UpDateBuffIcons()
+    {
+        for (int i = 0; i < buffIcons.Count; i++)
+        {
+
+            if (i < playerBuffs.activeBuffs.Count)
+            {
+                buffIcons[i].sprite = playerBuffs.activeBuffs[i].buffData.buffIcon;
+                buffIcons[i].gameObject.SetActive(true);
+            }
+            else
+            {
+                buffIcons[i].sprite = null;
+                buffIcons[i].gameObject.SetActive(false);
+            }
+        }
+    }
     private void OnDestroy()
     {
         if (GameManager.instance != null)
@@ -77,6 +102,21 @@ public class UIManager : MonoBehaviour
         }
         // if (restartButton == null) restartButton = gameOverScreen.GetComponentInChildren<Button>();
         if (uIInput == null) uIInput = transform.GetComponentInChildren<UIInputManager>();
+
+        playerBuffs = GameObject.FindAnyObjectByType<PlayerBuffs>();
+
+        LoadBuffIcon();
+
+    }
+
+    private void LoadBuffIcon()
+    {
+        if (buffIcons.Count > 0) return;
+        buffIcons = transform.Find("BuffIcons").GetComponentsInChildren<Image>().ToList<Image>();
+        foreach (Image icon in buffIcons)
+        {
+            icon.gameObject.SetActive(false);
+        }
     }
 
 

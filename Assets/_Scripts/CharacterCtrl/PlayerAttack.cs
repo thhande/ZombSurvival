@@ -6,7 +6,8 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour, IData
 {
 
-    private PlayerCore coreFighter;
+    [SerializeField] private PlayerCore coreFighter;
+    [SerializeField] private PlayerBuffs buffSys;
     [SerializeField] private List<PlayerWeaponSlots> weaponSlots = new List<PlayerWeaponSlots>();
     [SerializeField] private PlayerWeaponSlots currentWeaponSlot;
     [SerializeField] private Transform meleeAttackPoint;
@@ -74,7 +75,7 @@ public class PlayerAttack : MonoBehaviour, IData
             EnemyDamageReceiver enemyDamageReceiver = enemy.GetComponent<EnemyDamageReceiver>();
             if (enemyDamageReceiver != null)
             {
-                enemyDamageReceiver.TakeDamage(currentWeaponSlot.weaponProfile.meleeDamage);
+                enemyDamageReceiver.TakeDamage(currentWeaponSlot.weaponProfile.meleeDamage + (int)buffSys.GetBonus(BuffType.Attack));
                 enemyDamageReceiver.GetKnockback((enemy.transform.position - meleeAttackPoint.position).normalized);
                 Debug.Log("Enemy got " + currentWeaponSlot.weaponProfile.meleeDamage + " damage!");
             }
@@ -106,6 +107,7 @@ public class PlayerAttack : MonoBehaviour, IData
     public void Init(PlayerCore core)
     {
         coreFighter = core;
+        if (buffSys == null) buffSys = coreFighter.BuffMng;
         if (meleeAttackPoint == null) meleeAttackPoint = coreFighter.MeleeAttackPoint;
         if (slashEffectPrefab == null) slashEffectPrefab = meleeAttackPoint.Find("SlashEffect").GetComponent<SlashFx>();
         if (rangedAttackRange == null) rangedAttackRange = coreFighter.RangedAttackRange;

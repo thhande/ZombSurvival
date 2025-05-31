@@ -7,4 +7,5 @@ public class BuffData : ScriptableObject
     public float duration;
     public float value;
     public bool isStackable;
+    public Sprite buffIcon;
 }

@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 
-public class Buff : MonoBehaviour
+[System.Serializable]
+public class Buff
 {
     public BuffData buffData;
     public float duration = 15f;
@@ -11,6 +12,7 @@ public class Buff : MonoBehaviour
 
     public Buff(BuffData data)
     {
+        buffData = data;
         duration = data.duration;
     }
 
