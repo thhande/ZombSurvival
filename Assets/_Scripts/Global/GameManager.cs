@@ -22,18 +22,24 @@ public class GameManager : MonoBehaviour
     public bool isGameActive;
     public int wave = 1;
 
-    Coroutine timeCount;
+    Coroutine timeCoroutine;
 
     public event System.Action OnScoreChange;
     public event System.Action OnWaveChange;
     public event System.Action OnGameOver;
-    public event System.Action onTimePasses;
+    public event System.Action OnTimePasses;
+    public event System.Action OnHScoreChange;
 
     public void AddScore(int amount)
     {
         score += amount;
+        if (score > highScore)
+        {
+            highScore = score;
+            OnHScoreChange();
+        }
         playTime += Random.Range(2, 6);
-        onTimePasses();
+        OnTimePasses();
         OnScoreChange();
     }
 
@@ -46,8 +52,9 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
 
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         ResetValue();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
         isGameActive = true;
         // if (charPrefab != null) Instantiate(charPrefab);
     }
@@ -72,8 +79,9 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        SaveSystem.SaveHighScore(highScore);
         isGameActive = false;
-        StopAllCoroutines();
+        // StopAllCoroutines();
         ResetValue();
         if (player != null) Destroy(player);
         OnGameOver();
@@ -101,7 +109,8 @@ public class GameManager : MonoBehaviour
         }
         if (scene.buildIndex == 1 && isGameActive)
         {
-            StartCoroutine(TimeReduce());
+            if (timeCoroutine != null) StopCoroutine(timeCoroutine);
+            timeCoroutine = StartCoroutine(TimeReduce());
         }
 
     }
@@ -116,8 +125,8 @@ public class GameManager : MonoBehaviour
         while (isGameActive)
         {
             yield return new WaitForSeconds(1);
-            playTime -= 0.5f;
-            onTimePasses();
+            playTime -= 1;
+            OnTimePasses();
             if (playTime <= 0)
             {
                 GameOver();
@@ -136,8 +145,18 @@ public class GameManager : MonoBehaviour
             instance = this;
             LoadComponent();
         }
+
         DontDestroyOnLoad(gameObject);
+        highScore = SaveSystem.Load().highScore;
+
     }
+    // private void Start() // for test scene
+    // {
+
+    //     isGameActive = true;
+    //     ResetValue();
+    //     StartCoroutine(TimeReduce());
+    // }
 
 
     private void LoadComponent()

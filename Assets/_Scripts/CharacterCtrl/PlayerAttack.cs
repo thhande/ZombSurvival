@@ -57,7 +57,7 @@ public class PlayerAttack : MonoBehaviour, IData
         if (InputManager.instance.GetMovementVector() != Vector2.zero)
         {
             meleeAttackPoint.localPosition = InputManager.instance.GetMovementVector() * 0.5f + Vector2.down * 0.25f;
-            rangedAttackRange.transform.localPosition = InputManager.instance.GetMovementVector() * RANGED_ATTACK_RANGE;
+            if (!InputManager.instance.GetRangedAttackInput()) rangedAttackRange.transform.localPosition = InputManager.instance.GetMovementVector() * RANGED_ATTACK_RANGE;
         }
     }
 

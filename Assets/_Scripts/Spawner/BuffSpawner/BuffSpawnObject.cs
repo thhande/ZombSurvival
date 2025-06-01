@@ -6,6 +6,7 @@ public class BuffSpawnObject : SpawnObject
 {
     public BuffDrop buffDrop;
 
+
     private void OnValidate()
     {
 #if UNITY_EDITOR
@@ -18,5 +19,20 @@ public class BuffSpawnObject : SpawnObject
     private void Awake()
     {
         buffDrop = GetComponent<BuffDrop>();
+    }
+
+    IEnumerator SelfDestroy()
+    {
+        yield return new WaitForSeconds(10);
+        ReturnToPool();
+    }
+    private void OnEnable()
+    {
+        SelfDestroy();
+    }
+
+    private void OnDisable()
+    {
+        StopAllCoroutines();
     }
 }

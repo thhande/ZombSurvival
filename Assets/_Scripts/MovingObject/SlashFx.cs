@@ -10,6 +10,7 @@ public class SlashFx : MonoBehaviour
     private void Start() => Destroy(gameObject, delay);
     private void Update()
     {
+        if (_transform.position == null) return;
         transform.position = _transform.position;
 
     }

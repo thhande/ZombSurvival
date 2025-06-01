@@ -22,14 +22,17 @@ public class BuffSpawner : SingleTypeObjectSpawner
 
     private void Start()
     {
-        Spawn();
+
         StartCoroutine(SpawnCoroutine());
     }
 
     IEnumerator SpawnCoroutine()
     {
-        yield return new WaitForSeconds(5);
-        Spawn();
+        while (GameManager.instance.isGameActive)
+        {
+            yield return new WaitForSeconds(10);
+            Spawn();
+        }
 
     }
 

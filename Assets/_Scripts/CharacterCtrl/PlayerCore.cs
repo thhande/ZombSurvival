@@ -12,6 +12,7 @@ public class PlayerCore : MonoBehaviour
     [SerializeField] private RangedAttackRange rangedAttackRange;
     [SerializeField] private Transform meleeAttackPoint;
     [SerializeField] private PlayerMovement playerMovement;
+    [SerializeField] private PlayerDamageSender damageSender;
     [SerializeField] private PlayerBuffs buffMng;
 
 
@@ -22,6 +23,7 @@ public class PlayerCore : MonoBehaviour
     public RangedAttackRange RangedAttackRange => rangedAttackRange;
     public Transform MeleeAttackPoint => meleeAttackPoint;
     public PlayerMovement PlayerMovement => playerMovement;
+    public PlayerDamageSender DamageSender => damageSender;
     public PlayerBuffs BuffMng => buffMng;
 
 
@@ -34,18 +36,20 @@ public class PlayerCore : MonoBehaviour
         LoadComponents();
     }
 
-#if UNITY_EDITOR
+
     private void OnValidate()
     {
+#if UNITY_EDITOR
         LoadComponents();
-    }
 #endif
+    }
+
 
     private void LoadComponents()
     {
-        if (playerCombat == null) playerCombat = transform.GetComponentInChildren<PlayerAttack>();
-        playerCombat.Init(this);
-        if (damageReceiver == null) damageReceiver = transform.GetComponentInChildren<PlayerDamageReceiver>();
+        if (playerCombat == null) playerCombat = transform.GetComponentInChildren<PlayerAttack>(); playerCombat.Init(this);
+        if (damageReceiver == null) damageReceiver = transform.GetComponentInChildren<PlayerDamageReceiver>(); damageReceiver.Init(this);
+        if (damageSender == null) damageSender = transform.GetComponentInChildren<PlayerDamageSender>(); damageSender.Init(this);
         if (playerVisual == null) playerVisual = transform.GetComponentInChildren<Animator>();
         if (rangedAttackRange == null) rangedAttackRange = transform.GetComponentInChildren<RangedAttackRange>();
         if (meleeAttackPoint == null) meleeAttackPoint = transform.Find("MeleeAttackPoint");

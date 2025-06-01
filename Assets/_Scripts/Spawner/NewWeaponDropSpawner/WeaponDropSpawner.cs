@@ -51,7 +51,7 @@ public class WeaponDropSpawner : SingleTypeObjectSpawner
 
         if (newWeaponProfile.weaponType == WeaponType.Melee)
         {
-            return 1;
+            return Random.Range(20, 30);
         }
         else return Random.Range(10, 50);
 

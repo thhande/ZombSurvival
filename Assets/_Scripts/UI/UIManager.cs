@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI waveCount;
     [SerializeField] TextMeshProUGUI timeCount;
+    [SerializeField] TextMeshProUGUI highScoreText;
 
     [SerializeField] UIInputManager uIInput;
 
@@ -30,11 +31,13 @@ public class UIManager : MonoBehaviour
         GameManager.instance.OnScoreChange += UpdateScoreText;
         GameManager.instance.OnWaveChange += UpdateWaveCount;
         GameManager.instance.OnGameOver += GameOverUIUpdate;
-        GameManager.instance.onTimePasses += UpdateTimePasses;
+        GameManager.instance.OnTimePasses += UpdateTimePasses;
+        GameManager.instance.OnHScoreChange += UpdateHScoreText;
         playerBuffs.OnBuffChanged += UpDateBuffIcons;
 
-        // restartButton.onClick.AddListener(GameManager.instance.Restart);
 
+        // restartButton.onClick.AddListener(GameManager.instance.Restart);
+        UpdateHScoreText();
         UpdateScoreText();
     }
 
@@ -71,6 +74,12 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+    private void UpdateHScoreText()
+    {
+        highScoreText.text = GameManager.instance.highScore.ToString();
+    }
+
     private void OnDestroy()
     {
         if (GameManager.instance != null)
@@ -78,7 +87,9 @@ public class UIManager : MonoBehaviour
             GameManager.instance.OnScoreChange -= UpdateScoreText;
             GameManager.instance.OnWaveChange -= UpdateWaveCount;
             GameManager.instance.OnGameOver -= GameOverUIUpdate;
-            GameManager.instance.onTimePasses -= UpdateTimePasses;
+            GameManager.instance.OnTimePasses -= UpdateTimePasses;
+            GameManager.instance.OnHScoreChange -= UpdateHScoreText;
+            playerBuffs.OnBuffChanged -= UpDateBuffIcons;
         }
     }
 
@@ -94,6 +105,7 @@ public class UIManager : MonoBehaviour
         if (scoreText == null) scoreText = transform.Find("Score").GetComponentInChildren<TextMeshProUGUI>();
         if (waveCount == null) waveCount = transform.Find("WaveCount").GetComponent<TextMeshProUGUI>();
         if (timeCount == null) timeCount = transform.Find("TimeCount").GetComponent<TextMeshProUGUI>();
+        if (highScoreText == null) highScoreText = transform.Find("HighScore").GetComponent<TextMeshProUGUI>();
         if (gameOverScreen == null)
         {
             gameOverScreen = transform.Find("GameOverScreen").gameObject;

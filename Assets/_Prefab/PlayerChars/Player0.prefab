@@ -80,7 +80,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 1
+  m_Radius: 1.5
 --- !u!1 &973284999459500033
 GameObject:
   m_ObjectHideFlags: 0
@@ -581,6 +581,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 40
   maxHealth: 40
+  core: {fileID: 278727829254308492}
+  buff: {fileID: 4428189525118606467}
 --- !u!1 &4764914082956324586
 GameObject:
   m_ObjectHideFlags: 0
@@ -627,7 +629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coreFighter: {fileID: 278727829254308492}
-  buffSys: {fileID: 0}
+  buffSys: {fileID: 4428189525118606467}
   weaponSlots:
   - {fileID: 367584324453145267}
   - {fileID: 8919420580336175608}
@@ -738,6 +740,90 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponProfile: {fileID: 0}
   bulletCount: 0
+--- !u!1 &5868030246635609701
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8588391861893435531}
+  - component: {fileID: 159244291909684291}
+  - component: {fileID: 921501722683808309}
+  m_Layer: 0
+  m_Name: PlayerDamageSender
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8588391861893435531
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5868030246635609701}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6872840710795465984}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &159244291909684291
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5868030246635609701}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.5
+--- !u!114 &921501722683808309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5868030246635609701}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d04e7e8059152dd4f853b844552de273, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  knockForce: 2
+  core: {fileID: 278727829254308492}
+  buff: {fileID: 4428189525118606467}
 --- !u!1 &6388871991502365111
 GameObject:
   m_ObjectHideFlags: 0
@@ -776,6 +862,7 @@ Transform:
   - {fileID: 112157820710660892}
   - {fileID: 1884422423004636632}
   - {fileID: 4020540786039979509}
+  - {fileID: 8588391861893435531}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8815969608967267843
@@ -794,7 +881,7 @@ MonoBehaviour:
   rb: {fileID: 3131168450417443814}
   anim: {fileID: 3724486456477980092}
   playerSprite: {fileID: 952449080994713915}
-  buff: {fileID: 0}
+  buff: {fileID: 4428189525118606467}
   core: {fileID: 278727829254308492}
 --- !u!50 &3131168450417443814
 Rigidbody2D:
@@ -841,6 +928,7 @@ MonoBehaviour:
   rangedAttackRange: {fileID: 15332440757447779}
   meleeAttackPoint: {fileID: 4314277458207234615}
   playerMovement: {fileID: 8815969608967267843}
+  damageSender: {fileID: 921501722683808309}
   buffMng: {fileID: 4428189525118606467}
 --- !u!1 &7800045720113839406
 GameObject:

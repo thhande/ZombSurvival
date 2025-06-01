@@ -7,6 +7,10 @@ public class PlayerDamageReceiver : DamageReceiver, IData
     public event System.Action OnHealthChange;
 
 
+    [SerializeField] private PlayerCore core;
+    [SerializeField] private PlayerBuffs buff;
+
+
 
     private void Start()
     {
@@ -23,9 +27,17 @@ public class PlayerDamageReceiver : DamageReceiver, IData
     }
     public override void TakeDamage(int damage)
     {
+        if (buff.GetBonus(BuffType.Invincible) > 0) return;
         base.TakeDamage(damage);
         OnHealthChange?.Invoke();
 
+    }
+
+
+    public void Init(PlayerCore Core)
+    {
+        core = Core;
+        buff = core.BuffMng;
     }
 
 }
