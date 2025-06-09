@@ -15,6 +15,7 @@ public class PlayerDamageSender : DamageSender, IData
     {
 
         if (buff.GetBonus(BuffType.Speed) <= 0) return;
+        if (InputManager.instance.GetMovementVector().magnitude == 0) return;
         if (other.gameObject.layer == LayerMask.NameToLayer("EnemyDamageReceiver"))
         {
             EnemyDamageReceiver hitEnemy = other.GetComponent<EnemyDamageReceiver>();

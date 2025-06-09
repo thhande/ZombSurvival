@@ -6,6 +6,7 @@ using System.IO;
 public static class SaveSystem
 {
     private static string path = Application.persistentDataPath + "/save.json";
+
     public static void SaveHighScore(int score)
     {
         SaveData data = Load();
@@ -25,7 +26,7 @@ public static class SaveSystem
         }
         else
         {
-            return new SaveData(); // new data nếu chưa có file
+            return new SaveData(); // if dont have data
         }
     }
 }

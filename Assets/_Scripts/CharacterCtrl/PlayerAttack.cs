@@ -12,7 +12,7 @@ public class PlayerAttack : MonoBehaviour, IData
     [SerializeField] private PlayerWeaponSlots currentWeaponSlot;
     [SerializeField] private Transform meleeAttackPoint;
     [SerializeField] private LayerMask enemyLayers;
-    [SerializeField] private float meleeAttackRange = 1f;
+    [SerializeField] private float meleeAttackRange = 2f;
     [SerializeField] private SlashFx slashEffectPrefab;
     [SerializeField] private RangedAttackRange rangedAttackRange;
 
@@ -57,7 +57,7 @@ public class PlayerAttack : MonoBehaviour, IData
         if (InputManager.instance.GetMovementVector() != Vector2.zero)
         {
             meleeAttackPoint.localPosition = InputManager.instance.GetMovementVector() * 0.5f + Vector2.down * 0.25f;
-            if (!InputManager.instance.GetRangedAttackInput()) rangedAttackRange.transform.localPosition = InputManager.instance.GetMovementVector() * RANGED_ATTACK_RANGE;
+            if (!InputManager.instance.GetRangedAttackInput()) rangedAttackRange.transform.localPosition = InputManager.instance.GetMovementVector() * 0 * RANGED_ATTACK_RANGE;
         }
     }
 
