@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     public void EnemyWaveUpdate()
     {
         wave++;
-        OnWaveChange();
+        OnWaveChange?.Invoke();
     }
 
     public void Restart()

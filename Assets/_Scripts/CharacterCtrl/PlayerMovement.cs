@@ -42,7 +42,7 @@ public class PlayerMovement : MonoBehaviour, IData
     {
 
         movementDir = InputManager.instance.GetMovementVector().normalized;
-        rb.MovePosition(rb.position + movementDir * (moveSpeed + buff.GetBonus(BuffType.Speed)) * Time.deltaTime);
+        rb.MovePosition(rb.position + moveSpeed * Time.deltaTime * movementDir);
     }
 
     private void UpdateSpriteAnimation()
