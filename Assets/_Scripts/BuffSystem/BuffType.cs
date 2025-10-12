@@ -1,4 +1,4 @@
 public enum BuffType
 {
-    Attack, Speed, Invincible
+    Attack, ForceShield, Invincible
 }

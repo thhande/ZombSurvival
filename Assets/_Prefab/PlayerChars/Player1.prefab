@@ -667,7 +667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
-  knockForce: 1.25
+  knockForce: 3
   core: {fileID: 4363946332654944284}
   buff: {fileID: 4185468457447370128}
 --- !u!1 &7591337262052793139

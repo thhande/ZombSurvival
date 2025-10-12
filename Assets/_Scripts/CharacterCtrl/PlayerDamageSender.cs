@@ -14,7 +14,7 @@ public class PlayerDamageSender : DamageSender, IData
     protected override void DealDamage(Collider2D other)
     {
 
-        if (buff.GetBonus(BuffType.Speed) <= 0) return;
+        if (buff.GetBonus(BuffType.ForceShield) <= 0) return;
         if (InputManager.instance.GetMovementVector().magnitude == 0) return;
         if (other.gameObject.layer == LayerMask.NameToLayer("EnemyDamageReceiver"))
         {
