@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerWeaponSlots : WeaponContainer
+public class PlayerWeaponSlot : WeaponContainer
 {
-    private SpriteRenderer weaponSpriteRenderer;
+    [SerializeField] private PlayerWeaponVisual weaponVisual;
 
     private void OnValidate()
     {
@@ -18,7 +18,7 @@ public class PlayerWeaponSlots : WeaponContainer
 
     void Update()
     {
-        UpdateWeaponAnim();
+        weaponVisual.UpdateWeaponAnim();
     }
 
     public void BulletDecrease()
@@ -39,36 +39,11 @@ public class PlayerWeaponSlots : WeaponContainer
     public void RemoveWeapon()
     {
         weaponProfile = null;
-        weaponSpriteRenderer.sprite = null;
+        weaponVisual.RemoveSprite();
         UIInputManager.instance.OnWeaponRemoved(this.transform.GetSiblingIndex());
     }
 
-    //sprite renderer logic
-    //#--------------------------------------------------
-    private void UpdateWeaponVisual()
-    {
-        weaponSpriteRenderer.sprite = weaponProfile.weaponSprite;
-    }
-    private void UpdateWeaponAnim()
-    {
-        Vector2 direction = InputManager.instance.GetMovementVector().normalized;
-        if (direction.x != 0) weaponSpriteRenderer.flipY = direction.x < 0;
-        if (direction == Vector2.zero) return;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0f, 0f, angle);
-    }
 
-    public void HideWeaponSprite()
-    {
-        if (weaponSpriteRenderer != null) weaponSpriteRenderer.enabled = false;
-    }
-    public void ShowWeaponSprite()
-    {
-        weaponSpriteRenderer.enabled = true;
-    }
-    //#--------------------------------------------------
-    //handle weapon profile logic
-    //#--------------------------------------------------
     public void AddNewWeapon(WeaponDropContainer newWeapon)
     {
         if (weaponProfile == null)
@@ -93,7 +68,7 @@ public class PlayerWeaponSlots : WeaponContainer
             newWeapon.IsPickedUp();
         }
 
-        UpdateWeaponVisual();
+        weaponVisual.UpdateWeaponVisual();
         UIInputManager.instance.UpdateWeaponBulletCount(this.transform.GetSiblingIndex(), bulletCount);
         UIInputManager.instance.SetWeaponSlotSprite(this.transform.GetSiblingIndex(), weaponProfile.weaponSprite);
     }
@@ -102,8 +77,18 @@ public class PlayerWeaponSlots : WeaponContainer
     //#--------------------------------------------------
     private void LoadComponents()
     {
-        weaponSpriteRenderer = GetComponent<SpriteRenderer>();
-        if (weaponProfile != null) weaponSpriteRenderer.sprite = weaponProfile.weaponSprite;
+        if (weaponVisual == null) weaponVisual = GetComponentInChildren<PlayerWeaponVisual>();
+        if (weaponProfile != null) weaponVisual.UpdateWeaponVisual();
+    }
+
+    public void ShowWeapon()
+    {
+        weaponVisual.ShowWeaponSprite();
+    }
+
+    public void HideWeapon()
+    {
+        weaponVisual.HideWeaponSprite();
     }
 
 

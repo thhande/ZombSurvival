@@ -8,8 +8,8 @@ public class PlayerAttack : MonoBehaviour, IData
 
     [SerializeField] private PlayerCore coreFighter;
     [SerializeField] private PlayerBuffs buffSys;
-    [SerializeField] private List<PlayerWeaponSlots> weaponSlots = new List<PlayerWeaponSlots>();
-    [SerializeField] private PlayerWeaponSlots currentWeaponSlot;
+    [SerializeField] private List<PlayerWeaponSlot> weaponSlots = new List<PlayerWeaponSlot>();
+    [SerializeField] private PlayerWeaponSlot currentWeaponSlot;
     [SerializeField] private Transform meleeAttackPoint;
     [SerializeField] private LayerMask enemyLayers;
     [SerializeField] private float meleeAttackRange = 2f;
@@ -48,10 +48,11 @@ public class PlayerAttack : MonoBehaviour, IData
     {
 
         if (slotIndex < 0 || slotIndex >= weaponSlots.Count || currentWeaponSlot == weaponSlots[slotIndex]) return;
-        if (currentWeaponSlot != null) currentWeaponSlot.HideWeaponSprite();
+        if (currentWeaponSlot != null) currentWeaponSlot.HideWeapon();
         currentWeaponSlot = weaponSlots[slotIndex];
-        currentWeaponSlot.ShowWeaponSprite();
+        currentWeaponSlot.ShowWeapon();
     }
+
     private void UpdateAttackPointPosition()
     {
         if (InputManager.instance.GetMovementVector() != Vector2.zero)
@@ -100,7 +101,7 @@ public class PlayerAttack : MonoBehaviour, IData
         // if (rangedAttackRange == null) rangedAttackRange = transform.parent.GetComponentInChildren<RangedAttackRange>();
         if (enemyLayers == 0) enemyLayers = LayerMask.GetMask("EnemyDamageReceiver");
 
-        if (weaponSlots.Count == 0) weaponSlots = new List<PlayerWeaponSlots>(GetComponentsInChildren<PlayerWeaponSlots>());
+        if (weaponSlots.Count == 0) weaponSlots = new List<PlayerWeaponSlot>(GetComponentsInChildren<PlayerWeaponSlot>());
 
     }
 
