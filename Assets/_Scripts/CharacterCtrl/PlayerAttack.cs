@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class PlayerAttack : MonoBehaviour, IData
+public class PlayerAttack : MMono, IData<PlayerCore>
 {
 
     [SerializeField] private PlayerCore coreFighter;
@@ -16,17 +16,9 @@ public class PlayerAttack : MonoBehaviour, IData
     [SerializeField] private SlashFx slashEffectPrefab;
     [SerializeField] private RangedAttackRange rangedAttackRange;
 
+    private float lastShootTime = -Mathf.Infinity;
+
     const float RANGED_ATTACK_RANGE = 7.06f;
-#if UNITY_EDITOR
-    private void OnValidate()
-    {
-        LoadComponents();
-    }
-#endif
-    private void Start()
-    {
-        LoadComponents();
-    }
 
     private void Update()
     {
@@ -35,13 +27,18 @@ public class PlayerAttack : MonoBehaviour, IData
 
     }
 
-
     private void HandleInput()
     {
-        if (InputManager.instance.GetMeleeAttackInput()) DoMeleeAttack();
-        else if (InputManager.instance.GetRangedAttackInput()) DoRangedAttack();
-        if (InputManager.instance.SwitchToWeaponSlotOne()) SwitchToWeaponSlot(0);
-        else if (InputManager.instance.SwitchToWeaponSlotTwo()) SwitchToWeaponSlot(1);
+        InputManager input = InputManager.Instance;
+        if (input.GetMeleeAttackInput()) DoMeleeAttack();
+        else if (input.GetAttackDirVector() != Vector2.zero)
+        {
+            Debug.Log("shoot");
+            DoRangedAttack();
+        }
+
+        if (input.SwitchToWeaponSlotOne()) SwitchToWeaponSlot(0);
+        else if (input.SwitchToWeaponSlotTwo()) SwitchToWeaponSlot(1);
     }
 
     private void SwitchToWeaponSlot(int slotIndex)
@@ -55,10 +52,10 @@ public class PlayerAttack : MonoBehaviour, IData
 
     private void UpdateAttackPointPosition()
     {
-        if (InputManager.instance.GetMovementVector() != Vector2.zero)
+        if (InputManager.Instance.GetMovementVector() != Vector2.zero)
         {
-            meleeAttackPoint.localPosition = InputManager.instance.GetMovementVector() * 0.5f + Vector2.down * 0.25f;
-            if (!InputManager.instance.GetRangedAttackInput()) rangedAttackRange.transform.localPosition = InputManager.instance.GetMovementVector() * 0 * RANGED_ATTACK_RANGE;
+            meleeAttackPoint.localPosition = InputManager.Instance.GetMovementVector() * 0.5f + Vector2.down * 0.25f;
+            if (!InputManager.Instance.GetRangedAttackInput()) rangedAttackRange.transform.localPosition = InputManager.Instance.GetMovementVector() * 0 * RANGED_ATTACK_RANGE;
         }
     }
 
@@ -84,23 +81,27 @@ public class PlayerAttack : MonoBehaviour, IData
 
     }
 
+
     private void DoRangedAttack()
     {
-        if (currentWeaponSlot == null || currentWeaponSlot.weaponProfile == null) return;
+        if (!CanShoot()) return;
         BulletMoving newBullet = Instantiate(currentWeaponSlot.weaponProfile.bulletPrefab, currentWeaponSlot.transform.position, currentWeaponSlot.transform.rotation);
-        EnemyDamageReceiver closestEnemy = rangedAttackRange.FindClosestEnemy();
-        if (closestEnemy != null) newBullet.SetTarget(closestEnemy.transform.position);
+        newBullet.SetRotation(InputManager.Instance.GetAttackDirVector());
         currentWeaponSlot.BulletDecrease();
+        lastShootTime = Time.time;
+    }
+    private bool CanShoot()
+    {
+        if (currentWeaponSlot == null || currentWeaponSlot.weaponProfile == null) return false;
+        WeaponProfile currentWeapon = currentWeaponSlot.weaponProfile;
+        return lastShootTime + currentWeapon.attackSpeed <= Time.time;
 
     }
 
-    private void LoadComponents()
+    protected override void LoadComponents()
     {
 
-        // if (meleeAttackPoint == null) meleeAttackPoint = transform.parent.Find("MeleeAttackPoint");
-        // if (rangedAttackRange == null) rangedAttackRange = transform.parent.GetComponentInChildren<RangedAttackRange>();
         if (enemyLayers == 0) enemyLayers = LayerMask.GetMask("EnemyDamageReceiver");
-
         if (weaponSlots.Count == 0) weaponSlots = new List<PlayerWeaponSlot>(GetComponentsInChildren<PlayerWeaponSlot>());
 
     }
@@ -111,6 +112,5 @@ public class PlayerAttack : MonoBehaviour, IData
         if (buffSys == null) buffSys = coreFighter.BuffMng;
         if (meleeAttackPoint == null) meleeAttackPoint = coreFighter.MeleeAttackPoint;
         if (slashEffectPrefab == null) slashEffectPrefab = meleeAttackPoint.Find("SlashEffect").GetComponent<SlashFx>();
-        if (rangedAttackRange == null) rangedAttackRange = coreFighter.RangedAttackRange;
     }
 }

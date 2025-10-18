@@ -3,21 +3,10 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class BuffDrop : MonoBehaviour
+public class BuffDrop : MMono
 {
     public SpawnObject spawnObject;
     public BuffData buffData;
-
-    private void OnValidate()
-    {
-#if UNITY_EDITOR
-        spawnObject = GetComponent<SpawnObject>();
-#endif
-    }
-    private void Awake()
-    {
-        spawnObject = GetComponent<SpawnObject>();
-    }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -27,5 +16,11 @@ public class BuffDrop : MonoBehaviour
             playerBuff.AddNewBuff(buffData);
             spawnObject.ReturnToPool();
         }
+    }
+
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        if (spawnObject == null) spawnObject = GetComponent<SpawnObject>();
     }
 }

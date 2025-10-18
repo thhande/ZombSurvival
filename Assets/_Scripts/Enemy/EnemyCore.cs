@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyCore : MonoBehaviour
+public class EnemyCore : CoreBase<EnemyCore>
 {
     [SerializeField] private EnemyDamageReceiver damageReceiver;
     [SerializeField] private EnemyDamageSender damageSender;
@@ -18,27 +18,18 @@ public class EnemyCore : MonoBehaviour
     public SpriteRenderer Visual => visual;
     public Animator Anim => anim;
 
-    private void LoadComponents()
+    protected override void LoadComponents()
     {
-        if (damageReceiver == null) damageReceiver = transform.GetComponentInChildren<EnemyDamageReceiver>(); damageReceiver.Init(this);
-        if (damageSender == null) damageSender = transform.GetComponentInChildren<EnemyDamageSender>(); damageSender.Init(this);
+
         if (knockbackSys == null) knockbackSys = GetComponent<Knockback>();
         if (spawnCtrl == null) spawnCtrl = GetComponent<SpawnObject>();
         if (visual == null) visual = transform.GetComponentInChildren<SpriteRenderer>();
         if (anim == null) anim = transform.GetComponentInChildren<Animator>();
-
+        LoadComponent(ref damageReceiver, true);
+        LoadComponent(ref damageSender, true);
 
     }
 
-    private void Awake()
-    {
-        LoadComponents();
-    }
-    private void OnValidate()
-    {
-#if UNITY_EDITOR
-        LoadComponents();
-#endif
-    }
+
 
 }

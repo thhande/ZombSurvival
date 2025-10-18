@@ -11,5 +11,6 @@ public class WeaponProfile : ScriptableObject
     public BulletMoving bulletPrefab;
     public Sprite weaponSprite;
     public WeaponType weaponType;
+    public float attackSpeed;
 
 }
