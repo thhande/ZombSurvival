@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputManager : MonoBehaviour
+public class InputManager : Singleton<InputManager>
 {
-    public static InputManager instance;
-
 
     [SerializeField] private Vector2 movementInput;
+    [SerializeField] private Vector2 attackDirInput;
 
 
-
-
-    //UI Input
+    //UI Input Button
     private bool uiMeleeAttack = false;
     private bool uiRangedAttack = false;
     private bool uiSwitchWeaponOne = false;
@@ -24,28 +21,65 @@ public class InputManager : MonoBehaviour
     private void Update()
     {
         UpdateMovementInput();
+        UpdateAttackInput();
     }
 
 
     private void UpdateMovementInput()
     {
-        Joystick joystick = UIInputManager.instance.joystick;
+        Joystick joystick = UIInputManager.Instance.MovementJoystick;
         if (joystick.Horizontal != 0 && joystick.Vertical != 0)
         {
             movementInput = new Vector2(joystick.Horizontal, joystick.Vertical);
             if (movementInput.magnitude > 1) movementInput.Normalize();
-
         }
-
         else
         {
             movementInput = Vector2.zero;
-            if (LeftInput()) movementInput.x -= 1;
-            if (RightInput()) movementInput.x += 1;
-            if (UpInput()) movementInput.y += 1;
-            if (DownInput()) movementInput.y -= 1;
+            if (LeftMovementInput()) movementInput.x -= 1;
+            if (RightMovementInput()) movementInput.x += 1;
+            if (UpMovementInput()) movementInput.y += 1;
+            if (DownMovementInput()) movementInput.y -= 1;
         }
+    }
+    private void UpdateAttackInput()
+    {
+        Joystick joystick = UIInputManager.Instance.AttackJoystick;
+        if (joystick.Horizontal != 0 && joystick.Vertical != 0)
+        {
+            attackDirInput = new Vector2(joystick.Horizontal, joystick.Vertical);
+            if (attackDirInput.magnitude > 1) attackDirInput.Normalize();
+        }
+        else
+        {
+            attackDirInput = Vector2.zero;
+            if (GetLeftAttackDirInput()) attackDirInput.x -= 1;
+            if (GetRightAttackDirInput()) attackDirInput.x += 1;
+            if (GetUpAttackDirInput()) attackDirInput.y += 1;
+            if (GetDownAttackDirInput()) attackDirInput.y -= 1;
+        }
+    }
 
+    public Vector2 GetAttackDirVector()
+    {
+        return attackDirInput;
+    }
+
+    private bool GetUpAttackDirInput()
+    {
+        return Input.GetKey(KeyCode.I);
+    }
+    private bool GetDownAttackDirInput()
+    {
+        return Input.GetKey(KeyCode.K);
+    }
+    private bool GetLeftAttackDirInput()
+    {
+        return Input.GetKey(KeyCode.J);
+    }
+    private bool GetRightAttackDirInput()
+    {
+        return Input.GetKey(KeyCode.L);
     }
 
     public Vector2 GetMovementVector()
@@ -73,22 +107,22 @@ public class InputManager : MonoBehaviour
         return Input.GetKeyDown(KeyCode.Z);
     }
 
-    private bool LeftInput()
+    private bool LeftMovementInput()
     {
         return Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow);
 
     }
-    private bool RightInput()
+    private bool RightMovementInput()
     {
         return Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow);
 
     }
-    private bool UpInput()
+    private bool UpMovementInput()
     {
         return Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow);
 
     }
-    private bool DownInput()
+    private bool DownMovementInput()
     {
         return Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow);
 
@@ -165,16 +199,5 @@ public class InputManager : MonoBehaviour
 
 
 
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-
-        instance = this;
-
-    }
 
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour, IData
+public class PlayerMovement : MonoBehaviour, IData<PlayerCore>
 {
     [SerializeField] private float moveSpeed = 10f;
 
@@ -41,7 +41,7 @@ public class PlayerMovement : MonoBehaviour, IData
     private void MovePlayer()
     {
 
-        movementDir = InputManager.instance.GetMovementVector().normalized;
+        movementDir = InputManager.Instance.GetMovementVector().normalized;
         rb.MovePosition(rb.position + moveSpeed * Time.deltaTime * movementDir);
     }
 

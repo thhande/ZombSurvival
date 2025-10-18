@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 [RequireComponent(typeof(CircleCollider2D))]
-public class PlayerDamageSender : DamageSender, IData
+public class PlayerDamageSender : DamageSender, IData<PlayerCore>
 {
 
     [SerializeField] private float knockForce = 1;
@@ -15,7 +15,7 @@ public class PlayerDamageSender : DamageSender, IData
     {
 
         if (buff.GetBonus(BuffType.ForceShield) <= 0) return;
-        if (InputManager.instance.GetMovementVector().magnitude == 0) return;
+        if (InputManager.Instance.GetMovementVector().magnitude == 0) return;
         if (other.gameObject.layer == LayerMask.NameToLayer("EnemyDamageReceiver"))
         {
             EnemyDamageReceiver hitEnemy = other.GetComponent<EnemyDamageReceiver>();

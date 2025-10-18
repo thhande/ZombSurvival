@@ -4,12 +4,14 @@ using System.ComponentModel.Design;
 using System.Data.Common;
 using UnityEngine;
 
-public class PlayerBuffs : MonoBehaviour, IData
+public class PlayerBuffs : MonoBehaviour, IData<PlayerCore>
 {
 
     [SerializeField] public List<Buff> activeBuffs = new List<Buff>();
 
     public event System.Action OnBuffChanged;
+
+    [SerializeField] private PlayerCore core;
 
 
     private void Update()
@@ -52,5 +54,10 @@ public class PlayerBuffs : MonoBehaviour, IData
             if (data.buffType == type) bonusVal += data.value;
         }
         return bonusVal;
+    }
+
+    public void Init(PlayerCore _core)
+    {
+        core = _core;
     }
 }

@@ -4,7 +4,7 @@ using System.Net;
 using UnityEngine;
 
 [RequireComponent(typeof(Collider2D))]
-public class DamageSender : MonoBehaviour, IData
+public class DamageSender : MonoBehaviour
 {
     [SerializeField] protected int damage;
 

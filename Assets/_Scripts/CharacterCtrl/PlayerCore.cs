@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-public class PlayerCore : MonoBehaviour
+public class PlayerCore : CoreBase<PlayerCore>
 {
 
     [SerializeField] private PlayerAttack playerCombat;
     [SerializeField] private PlayerDamageReceiver damageReceiver;
     [SerializeField] private Animator playerVisual;
-    [SerializeField] private RangedAttackRange rangedAttackRange;
     [SerializeField] private Transform meleeAttackPoint;
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerDamageSender damageSender;
@@ -20,7 +19,6 @@ public class PlayerCore : MonoBehaviour
     public PlayerAttack PlayerCombat => playerCombat;
     public PlayerDamageReceiver DamageReceiver => damageReceiver;
     public Animator PlayerVisual => playerVisual;
-    public RangedAttackRange RangedAttackRange => rangedAttackRange;
     public Transform MeleeAttackPoint => meleeAttackPoint;
     public PlayerMovement PlayerMovement => playerMovement;
     public PlayerDamageSender DamageSender => damageSender;
@@ -30,31 +28,17 @@ public class PlayerCore : MonoBehaviour
 
 
 
-
-    private void Awake()
+    protected override void LoadComponents()
     {
-        LoadComponents();
-    }
-
-
-    private void OnValidate()
-    {
-#if UNITY_EDITOR
-        LoadComponents();
-#endif
-    }
-
-
-    private void LoadComponents()
-    {
-        if (playerCombat == null) playerCombat = transform.GetComponentInChildren<PlayerAttack>(); playerCombat.Init(this);
-        if (damageReceiver == null) damageReceiver = transform.GetComponentInChildren<PlayerDamageReceiver>(); damageReceiver.Init(this);
-        if (damageSender == null) damageSender = transform.GetComponentInChildren<PlayerDamageSender>(); damageSender.Init(this);
         if (playerVisual == null) playerVisual = transform.GetComponentInChildren<Animator>();
-        if (rangedAttackRange == null) rangedAttackRange = transform.GetComponentInChildren<RangedAttackRange>();
         if (meleeAttackPoint == null) meleeAttackPoint = transform.Find("MeleeAttackPoint");
-        if (playerMovement == null) playerMovement = GetComponent<PlayerMovement>(); playerMovement.Init(this);
-        if (buffMng == null) buffMng = transform.GetComponentInChildren<PlayerBuffs>();
+        LoadComponent(ref playerCombat, true);
+        LoadComponent(ref damageReceiver, true);
+        LoadComponent(ref damageSender, true);
+        LoadComponent(ref playerMovement);
+        LoadComponent(ref buffMng);
+
+
     }
 
 

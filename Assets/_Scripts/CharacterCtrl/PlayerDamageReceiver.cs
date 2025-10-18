@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerDamageReceiver : DamageReceiver, IData
+public class PlayerDamageReceiver : DamageReceiver, IData<PlayerCore>
 {
     public event System.Action OnHealthChange;
 

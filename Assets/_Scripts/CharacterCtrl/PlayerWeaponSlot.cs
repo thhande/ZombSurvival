@@ -33,14 +33,14 @@ public class PlayerWeaponSlot : WeaponContainer
 
 
             }
-            else UIInputManager.instance.UpdateWeaponBulletCount(this.transform.GetSiblingIndex(), bulletCount);
+            else UIInputManager.Instance.UpdateWeaponBulletCount(this.transform.GetSiblingIndex(), bulletCount);
         }
     }
     public void RemoveWeapon()
     {
         weaponProfile = null;
         weaponVisual.RemoveSprite();
-        UIInputManager.instance.OnWeaponRemoved(this.transform.GetSiblingIndex());
+        UIInputManager.Instance.OnWeaponRemoved(this.transform.GetSiblingIndex());
     }
 
 
@@ -69,8 +69,8 @@ public class PlayerWeaponSlot : WeaponContainer
         }
 
         weaponVisual.UpdateWeaponVisual();
-        UIInputManager.instance.UpdateWeaponBulletCount(this.transform.GetSiblingIndex(), bulletCount);
-        UIInputManager.instance.SetWeaponSlotSprite(this.transform.GetSiblingIndex(), weaponProfile.weaponSprite);
+        UIInputManager.Instance.UpdateWeaponBulletCount(this.transform.GetSiblingIndex(), bulletCount);
+        UIInputManager.Instance.SetWeaponSlotSprite(this.transform.GetSiblingIndex(), weaponProfile.weaponSprite);
     }
 
     //load components logic

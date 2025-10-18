@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyDamageSender : DamageSender, IData
+public class EnemyDamageSender : DamageSender, IData<EnemyCore>
 {
     [SerializeField] private Knockback knockbackSys;
     [SerializeField] private EnemyCore core;

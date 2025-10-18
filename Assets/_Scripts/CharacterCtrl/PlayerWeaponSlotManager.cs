@@ -32,7 +32,7 @@ public class PlayerWeaponSlotManager : MonoBehaviour
         if (collision.CompareTag("WeaponDrop"))
         {
             weaponToPickup = collision.GetComponent<WeaponDropContainer>();
-            UIInputManager.instance.ShowWeaponChangeButton();
+            UIInputManager.Instance.ShowWeaponChangeButton();
         }
     }
 
@@ -42,7 +42,7 @@ public class PlayerWeaponSlotManager : MonoBehaviour
         {
 
             weaponToPickup = null;
-            UIInputManager.instance.HideWeaponChangeButton();
+            UIInputManager.Instance.HideWeaponChangeButton();
         }
     }
 
@@ -57,11 +57,11 @@ public class PlayerWeaponSlotManager : MonoBehaviour
 
     private int NewSlotIndex()
     {
-        if (InputManager.instance.ChangeWeaponInSlotOne() || weaponSlots[0].weaponProfile == null || weaponSlots[0].weaponProfile == weaponToPickup.weaponProfile)
+        if (InputManager.Instance.ChangeWeaponInSlotOne() || weaponSlots[0].weaponProfile == null || weaponSlots[0].weaponProfile == weaponToPickup.weaponProfile)
         {
             return 0;
         }
-        else if (InputManager.instance.ChangeWeaponInSlotTwo() || weaponSlots[1].weaponProfile == null || weaponSlots[1].weaponProfile == weaponToPickup.weaponProfile)
+        else if (InputManager.Instance.ChangeWeaponInSlotTwo() || weaponSlots[1].weaponProfile == null || weaponSlots[1].weaponProfile == weaponToPickup.weaponProfile)
         {
             return 1;
         }
