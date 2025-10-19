@@ -18,9 +18,6 @@ public class EnemyDamageSender : DamageSender, IData<EnemyCore>
         if (hitPlayer != null)
         {
             hitPlayer.TakeDamage(damage);
-            Debug.Log("Deal " + damage + " damage to player");
-
-
             Vector2 knockbackDir = (transform.position - collision.transform.position).normalized;
             knockbackSys.ApplyKnockback(knockbackDir);
         }

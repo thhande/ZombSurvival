@@ -13,12 +13,10 @@ public class BulletDamageSender : DamageSender
     protected override void DealDamage(Collider2D collision)
     {
         base.DealDamage(collision);
-        Debug.Log("Hit something");
         EnemyDamageReceiver damageReceiver = collision.GetComponent<EnemyDamageReceiver>();
         if (damageReceiver != null)
         {
             damageReceiver.TakeDamage(damage);
-            Debug.Log("Deal " + damage + " damage to something");
             Destroy(gameObject);
         }
 

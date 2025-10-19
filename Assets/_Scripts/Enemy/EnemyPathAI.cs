@@ -15,7 +15,7 @@ public class EnemyPathAI : MonoBehaviour
 
     Path path;
     int currentWaypoint = 0;
-    // bool reachedEndOfPath = false;
+
 
     [SerializeField] Seeker seeker;
     [SerializeField] Rigidbody2D rb;
@@ -23,6 +23,7 @@ public class EnemyPathAI : MonoBehaviour
     private void Start()
     {
         LoadComponents();
+        target = GameManager.instance.CurrentPlayer.transform;
         InvokeRepeating(nameof(UpdatePath), 0f, 0.5f);
 
     }
@@ -94,10 +95,9 @@ public class EnemyPathAI : MonoBehaviour
         if (rb == null) rb = GetComponent<Rigidbody2D>();
         if (spriteRenderer == null) spriteRenderer = GetComponentInChildren<SpriteRenderer>();
 #if UNITY_EDITOR
-        // Trong Editor, đừng load player (vì có thể nó chưa hiện diện)
         if (!Application.isPlaying) return;
 #endif
-        if (target == null) target = GameObject.FindFirstObjectByType<PlayerDamageReceiver>().transform;
+
     }
 
 

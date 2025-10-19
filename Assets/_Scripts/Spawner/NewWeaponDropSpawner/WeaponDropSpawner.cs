@@ -45,6 +45,7 @@ public class WeaponDropSpawner : SingleTypeObjectSpawner
         WeaponProfile weaponProfile = weaponProfiles[Random.Range(0, weaponProfiles.Count)];
         int newBulletCount = GenerateRandomBulletCount(weaponProfile);
         obj.OnSpawn(weaponProfile, newBulletCount);
+        obj.SetPool(this.objectPool);
     }
     private int GenerateRandomBulletCount(WeaponProfile newWeaponProfile)
     {
