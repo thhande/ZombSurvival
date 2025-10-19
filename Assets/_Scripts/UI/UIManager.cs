@@ -16,9 +16,6 @@ public class UIManager : MonoBehaviour
 
 
     [SerializeField] GameObject gameOverScreen;
-    // [SerializeField] Button restartButton;
-
-
 
     [SerializeField] List<Image> buffIcons;
     [SerializeField] PlayerBuffs playerBuffs;
@@ -89,7 +86,7 @@ public class UIManager : MonoBehaviour
             GameManager.instance.OnGameOver -= GameOverUIUpdate;
             GameManager.instance.OnTimePasses -= UpdateTimePasses;
             GameManager.instance.OnHScoreChange -= UpdateHScoreText;
-            playerBuffs.OnBuffChanged -= UpDateBuffIcons;
+            if (playerBuffs != null) playerBuffs.OnBuffChanged -= UpDateBuffIcons;
         }
     }
 

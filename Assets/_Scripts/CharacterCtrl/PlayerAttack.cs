@@ -74,7 +74,6 @@ public class PlayerAttack : MMono, IData<PlayerCore>
             {
                 enemyDamageReceiver.TakeDamage(currentWeaponSlot.weaponProfile.meleeDamage + (int)buffSys.GetBonus(BuffType.Attack));
                 enemyDamageReceiver.GetKnockback((enemy.transform.position - meleeAttackPoint.position).normalized);
-                Debug.Log("Enemy got " + currentWeaponSlot.weaponProfile.meleeDamage + " damage!");
             }
         }
 

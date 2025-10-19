@@ -28,7 +28,7 @@ public class EnemyDamageReceiver : DamageReceiver, IData<EnemyCore>
     public override void TakeDamage(int damage)
     {
         base.TakeDamage(damage);
-        Debug.Log("Deal " + damage + " damage to enemy");
+        // Debug.Log("Deal " + damage + " damage to enemy");
         anim.SetTrigger("Hit");
     }
 

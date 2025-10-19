@@ -8617,6 +8617,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8525569804231876227, guid: 6f083c77b6a22ad4f83b8477885578be, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 1334025656}
+    - target: {fileID: 8525569804231876227, guid: 6f083c77b6a22ad4f83b8477885578be, type: 3}
       propertyPath: uiManager
       value: 
       objectReference: {fileID: 0}

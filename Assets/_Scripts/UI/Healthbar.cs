@@ -38,9 +38,9 @@ public class Healthbar : MonoBehaviour
 
     public void PlayerHealthChange()
     {
+        if (playerHealth == null) return;
         slide.value = playerHealth.Health;
         slide.maxValue = playerHealth.MaxHealth;
-        // Debug.Log("Health: " + playerHealth.Health);
     }
 
     private void LoadComponents()

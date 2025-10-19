@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject charPrefab;
     [SerializeField] GameObject player;
 
-
+    public GameObject CurrentPlayer => player;
     public int score = 0;
     public int highScore;
 
@@ -56,7 +56,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 
         isGameActive = true;
-        // if (charPrefab != null) Instantiate(charPrefab);
     }
 
     public void ResetValue()
