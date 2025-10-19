@@ -23,7 +23,6 @@ public class UIInputManager : Singleton<UIInputManager>
     [SerializeField] private Button switchButtonOne;
     [SerializeField] private Button switchButtonTwo;
     [SerializeField] private Button meleeAttackButton;
-    [SerializeField] private Button shootButton;
 
 
     private void Start()
@@ -141,7 +140,6 @@ public class UIInputManager : Singleton<UIInputManager>
         switchButtonOne.onClick.AddListener(() => input.UISwitchToWeaponSlotOne());
         switchButtonTwo.onClick.AddListener(() => input.UISwitchToWeaponSlotTwo());
         meleeAttackButton.onClick.AddListener(() => input.UIMeleeAttackInput());
-        shootButton.onClick.AddListener(() => input.UIRangedAttackInput());
     }
 
 
