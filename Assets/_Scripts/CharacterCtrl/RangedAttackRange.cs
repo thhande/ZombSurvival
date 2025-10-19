@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedAttackRange : MonoBehaviour
+public class RangedAttackRange : MMono, IData<PlayerCore>
 {
     [SerializeField] private List<EnemyDamageReceiver> enemiesInRange = new List<EnemyDamageReceiver>();
     [SerializeField] private Transform playerTransform;
+    [SerializeField] private PlayerCore core;
 
 
 
@@ -20,7 +21,7 @@ public class RangedAttackRange : MonoBehaviour
         EnemyDamageReceiver leftEnemy = collision.GetComponent<EnemyDamageReceiver>();
         if (leftEnemy != null) enemiesInRange.Remove(leftEnemy);
     }
-    public EnemyDamageReceiver FindClosestEnemy()
+    private EnemyDamageReceiver FindClosestEnemy()
     {
         EnemyDamageReceiver closestEnemy = null;
         float closestDistance = Mathf.Infinity;
@@ -31,25 +32,35 @@ public class RangedAttackRange : MonoBehaviour
             {
                 closestDistance = distance;
                 closestEnemy = enemy;
-
             }
         }
         return closestEnemy;
 
     }
-
-    private void OnValidate()
+    public Vector2 GetClosestEnemyPos()
     {
-        Start();
+        EnemyDamageReceiver closestEnemy = FindClosestEnemy();
+        return closestEnemy != null ? closestEnemy.transform.position : Vector2.zero;
     }
 
-    private void Start()
+    public void UpdateAimSightRotation()
     {
-        LoadComponents();
+        Vector2 aimDirInput = InputManager.Instance.GetAttackDirVector();
+        Vector2 moveDirInput = InputManager.Instance.GetMovementVector();
+        if (aimDirInput == Vector2.zero) SetRotation(moveDirInput);
+        else SetRotation(aimDirInput);
     }
 
-    private void LoadComponents()
+    private void SetRotation(Vector2 dir)
     {
-        if (playerTransform == null) playerTransform = transform.parent;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0f, 0f, angle);
     }
+
+    public void Init(PlayerCore _core)
+    {
+        core = _core;
+        playerTransform = core.transform;
+    }
+
 }

@@ -13,6 +13,7 @@ public class PlayerCore : CoreBase<PlayerCore>
     [SerializeField] private PlayerMovement playerMovement;
     [SerializeField] private PlayerDamageSender damageSender;
     [SerializeField] private PlayerBuffs buffMng;
+    [SerializeField] private RangedAttackRange aimSight;
 
 
 
@@ -23,6 +24,7 @@ public class PlayerCore : CoreBase<PlayerCore>
     public PlayerMovement PlayerMovement => playerMovement;
     public PlayerDamageSender DamageSender => damageSender;
     public PlayerBuffs BuffMng => buffMng;
+    public RangedAttackRange AimSight => aimSight;
 
 
 
@@ -32,11 +34,12 @@ public class PlayerCore : CoreBase<PlayerCore>
     {
         if (playerVisual == null) playerVisual = transform.GetComponentInChildren<Animator>();
         if (meleeAttackPoint == null) meleeAttackPoint = transform.Find("MeleeAttackPoint");
+        LoadComponent(ref aimSight, true);
         LoadComponent(ref playerCombat, true);
         LoadComponent(ref damageReceiver, true);
         LoadComponent(ref damageSender, true);
         LoadComponent(ref playerMovement);
-        LoadComponent(ref buffMng);
+        LoadComponent(ref buffMng, true);
 
 
     }

@@ -14,7 +14,7 @@ public class PlayerAttack : MMono, IData<PlayerCore>
     [SerializeField] private LayerMask enemyLayers;
     [SerializeField] private float meleeAttackRange = 2f;
     [SerializeField] private SlashFx slashEffectPrefab;
-    [SerializeField] private RangedAttackRange rangedAttackRange;
+    [SerializeField] private RangedAttackRange aimSight;
 
     private float lastShootTime = -Mathf.Infinity;
 
@@ -33,7 +33,6 @@ public class PlayerAttack : MMono, IData<PlayerCore>
         if (input.GetMeleeAttackInput()) DoMeleeAttack();
         else if (input.GetAttackDirVector() != Vector2.zero)
         {
-            Debug.Log("shoot");
             DoRangedAttack();
         }
 
@@ -55,8 +54,8 @@ public class PlayerAttack : MMono, IData<PlayerCore>
         if (InputManager.Instance.GetMovementVector() != Vector2.zero)
         {
             meleeAttackPoint.localPosition = InputManager.Instance.GetMovementVector() * 0.5f + Vector2.down * 0.25f;
-            if (!InputManager.Instance.GetRangedAttackInput()) rangedAttackRange.transform.localPosition = InputManager.Instance.GetMovementVector() * 0 * RANGED_ATTACK_RANGE;
         }
+        aimSight.UpdateAimSightRotation();
     }
 
 
@@ -86,7 +85,9 @@ public class PlayerAttack : MMono, IData<PlayerCore>
     {
         if (!CanShoot()) return;
         BulletMoving newBullet = Instantiate(currentWeaponSlot.weaponProfile.bulletPrefab, currentWeaponSlot.transform.position, currentWeaponSlot.transform.rotation);
-        newBullet.SetRotation(InputManager.Instance.GetAttackDirVector());
+        Vector2 closestEnemyPos = aimSight.GetClosestEnemyPos();
+        if (closestEnemyPos != Vector2.zero) newBullet.SetTarget(aimSight.GetClosestEnemyPos());
+        else newBullet.SetRotation(InputManager.Instance.GetAttackDirVector());
         currentWeaponSlot.BulletDecrease();
         lastShootTime = Time.time;
     }
@@ -109,6 +110,7 @@ public class PlayerAttack : MMono, IData<PlayerCore>
     public void Init(PlayerCore core)
     {
         coreFighter = core;
+        aimSight = core.AimSight;
         if (buffSys == null) buffSys = coreFighter.BuffMng;
         if (meleeAttackPoint == null) meleeAttackPoint = coreFighter.MeleeAttackPoint;
         if (slashEffectPrefab == null) slashEffectPrefab = meleeAttackPoint.Find("SlashEffect").GetComponent<SlashFx>();
