@@ -80,7 +80,6 @@ public class GameManager : MonoBehaviour
     {
         SaveSystem.SaveHighScore(highScore);
         isGameActive = false;
-        // StopAllCoroutines();
         ResetValue();
         if (player != null) Destroy(player);
         OnGameOver();
@@ -101,7 +100,6 @@ public class GameManager : MonoBehaviour
     {
         if (scene.buildIndex == 1 && charPrefab != null)
         {
-            // Debug.Log("Scene đã load xong, giờ mới spawn player");
             player = Instantiate(charPrefab, Vector3.zero, Quaternion.identity);
             var healthbar = GameObject.FindAnyObjectByType<Healthbar>();
             healthbar.SetPlayer(player.transform.GetComponentInChildren<PlayerDamageReceiver>());
@@ -149,14 +147,6 @@ public class GameManager : MonoBehaviour
         highScore = SaveSystem.Load().highScore;
 
     }
-    // private void Start() // for test scene
-    // {
-
-    //     isGameActive = true;
-    //     ResetValue();
-    //     StartCoroutine(TimeReduce());
-    // }
-
 
     private void LoadComponent()
     {

@@ -7,8 +7,12 @@ public class RangedAttackRange : MMono, IData<PlayerCore>
     [SerializeField] private List<EnemyDamageReceiver> enemiesInRange = new List<EnemyDamageReceiver>();
     [SerializeField] private Transform playerTransform;
     [SerializeField] private PlayerCore core;
+    [SerializeField] private SpriteRenderer aimGUI;
 
-
+    private void Update()
+    {
+        UpdateAimSightRotation();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -47,8 +51,24 @@ public class RangedAttackRange : MMono, IData<PlayerCore>
     {
         Vector2 aimDirInput = InputManager.Instance.GetAttackDirVector();
         Vector2 moveDirInput = InputManager.Instance.GetMovementVector();
-        if (aimDirInput == Vector2.zero) SetRotation(moveDirInput);
-        else SetRotation(aimDirInput);
+        if (aimDirInput == Vector2.zero)
+        {
+            HideAimGUI();
+            SetRotation(moveDirInput);
+        }
+        else
+        {
+            SetRotation(aimDirInput);
+            ShowAimGUI();
+        }
+    }
+    private void ShowAimGUI()
+    {
+        aimGUI.enabled = true;
+    }
+    private void HideAimGUI()
+    {
+        aimGUI.enabled = false;
     }
 
     private void SetRotation(Vector2 dir)
@@ -61,6 +81,12 @@ public class RangedAttackRange : MMono, IData<PlayerCore>
     {
         core = _core;
         playerTransform = core.transform;
+    }
+
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        if (aimGUI == null) aimGUI = GetComponentInChildren<SpriteRenderer>();
     }
 
 }

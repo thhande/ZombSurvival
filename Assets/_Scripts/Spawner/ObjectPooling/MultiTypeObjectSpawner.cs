@@ -6,9 +6,11 @@ public abstract class MultiTypeObjectSpawner : MonoBehaviour
 {
     [SerializeField] protected List<ObjectPool> objectPools = new List<ObjectPool>();
     protected Dictionary<ObjectTag, ObjectPool> objectPoolDictionary = new Dictionary<ObjectTag, ObjectPool>();
+    [SerializeField] private LayerMask obstacleLayer;
     protected virtual void Awake()
     {
         LoadComponents();
+        obstacleLayer = LayerMask.GetMask("Obstacles");
         foreach (ObjectPool pool in objectPools)
         {
             objectPoolDictionary.Add(pool.objectTag, pool);
@@ -37,12 +39,20 @@ public abstract class MultiTypeObjectSpawner : MonoBehaviour
 
         Vector3 topRight = Camera.main.ViewportToWorldPoint(new Vector3(1, 1, 0));
 
-
         float padding = 0.5f;
 
 
         float spawnX = Random.Range(bottomLeft.x + padding, topRight.x - padding);
         float spawnY = Random.Range(bottomLeft.y + padding, topRight.y - padding);
-        return new Vector2(spawnX, spawnY);
+        Vector2 pos = new Vector2(spawnX, spawnY);
+        if (SpawnOnObstacle(pos)) return GetRandomPosition();
+
+        else return pos;
+    }
+
+    private bool SpawnOnObstacle(Vector2 pos)
+    {
+        Collider2D hit = Physics2D.OverlapCircle(pos, 1.5f, obstacleLayer);
+        return hit != null;
     }
 }

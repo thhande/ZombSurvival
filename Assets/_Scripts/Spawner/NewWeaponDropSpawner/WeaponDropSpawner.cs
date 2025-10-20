@@ -33,8 +33,7 @@ public class WeaponDropSpawner : SingleTypeObjectSpawner
             {
                 SpawnAtRandomPos();
             }
-
-            Debug.Log("Spawned at: " + objectPool.transform.position);
+            // Debug.Log("Spawned at: " + objectPool.transform.position);
         }
     }
     protected override void SpawnAtRandomPos()
