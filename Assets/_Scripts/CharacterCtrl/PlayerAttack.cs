@@ -55,7 +55,6 @@ public class PlayerAttack : MMono, IData<PlayerCore>
         {
             meleeAttackPoint.localPosition = InputManager.Instance.GetMovementVector() * 0.5f + Vector2.down * 0.25f;
         }
-        aimSight.UpdateAimSightRotation();
     }
 
 

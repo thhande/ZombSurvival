@@ -46,3 +46,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: GUI
+    uniqueID: 2690707535
+    locked: 0
+  - name: Object
+    uniqueID: 782927111
+    locked: 0
