@@ -922,6 +922,7 @@ MonoBehaviour:
   meleeAttackRange: 1
   slashEffectPrefab: {fileID: 5457726222768889433}
   aimSight: {fileID: 311907554440961882}
+  bareHandAttackPow: 7
 --- !u!1 &4884529369511268804
 GameObject:
   m_ObjectHideFlags: 0

@@ -74,7 +74,7 @@ public class UIManager : MonoBehaviour
 
     private void UpdateHScoreText()
     {
-        highScoreText.text = GameManager.instance.highScore.ToString();
+        highScoreText.text = "Hi:" + GameManager.instance.highScore.ToString();
     }
 
     private void OnDestroy()

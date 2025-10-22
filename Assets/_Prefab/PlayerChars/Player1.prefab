@@ -177,8 +177,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1604259761
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ca701abe32e33414a9880404acf91968, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1028,8 +1028,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 782927111
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -1592204662, guid: 0c187a32c5bde4747be8d00770b07403, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1121,6 +1121,7 @@ MonoBehaviour:
   meleeAttackRange: 1
   slashEffectPrefab: {fileID: 6765782584751098310}
   aimSight: {fileID: 5251802860282263688}
+  bareHandAttackPow: 4
 --- !u!1 &8068327532803652570
 GameObject:
   m_ObjectHideFlags: 0
