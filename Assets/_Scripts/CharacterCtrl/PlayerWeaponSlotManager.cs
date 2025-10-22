@@ -51,7 +51,7 @@ public class PlayerWeaponSlotManager : MonoBehaviour
 
         if (weaponToPickup == null) return;
         int index = NewSlotIndex();
-        if (index != -1) weaponSlots[index].AddNewWeapon(weaponToPickup);
+        if (index != -1) weaponSlots[index].GetDropWeapon(weaponToPickup);
 
     }
 

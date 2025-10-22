@@ -15,10 +15,10 @@ public class PlayerAttack : MMono, IData<PlayerCore>
     [SerializeField] private float meleeAttackRange = 2f;
     [SerializeField] private SlashFx slashEffectPrefab;
     [SerializeField] private RangedAttackRange aimSight;
+    [SerializeField] private float bareHandAttackPow = 7;
 
     private float lastShootTime = -Mathf.Infinity;
 
-    const float RANGED_ATTACK_RANGE = 7.06f;
 
     private void Update()
     {
@@ -57,11 +57,21 @@ public class PlayerAttack : MMono, IData<PlayerCore>
         }
     }
 
-
     private void DoMeleeAttack()
     {
 
-        if (currentWeaponSlot == null || currentWeaponSlot.weaponProfile == null) return;
+        if (currentWeaponSlot == null || currentWeaponSlot.weaponProfile == null) // if not carrying any weapon, deal damage by the default stat of the character
+        {
+            DetectAndDealMeleeDamage(bareHandAttackPow);
+            return;
+        }
+        int currentWeaponPow = currentWeaponSlot.weaponProfile.meleeDamage;
+        DetectAndDealMeleeDamage(currentWeaponPow);
+
+    }
+
+    private void DetectAndDealMeleeDamage(float damage)
+    {
         Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(meleeAttackPoint.position, meleeAttackRange, enemyLayers);
         SlashFx slashEffect = Instantiate(slashEffectPrefab, meleeAttackPoint.position, meleeAttackPoint.rotation);
         slashEffect.gameObject.SetActive(true);
@@ -71,11 +81,10 @@ public class PlayerAttack : MMono, IData<PlayerCore>
             EnemyDamageReceiver enemyDamageReceiver = enemy.GetComponent<EnemyDamageReceiver>();
             if (enemyDamageReceiver != null)
             {
-                enemyDamageReceiver.TakeDamage(currentWeaponSlot.weaponProfile.meleeDamage + (int)buffSys.GetBonus(BuffType.Attack));
-                enemyDamageReceiver.GetKnockback((enemy.transform.position - meleeAttackPoint.position).normalized);
+                enemyDamageReceiver.TakeDamage((int)damage + (int)buffSys.GetBonus(BuffType.Attack));
+                enemyDamageReceiver.GetKnockback((enemy.transform.position - meleeAttackPoint.position).normalized * 2);//add 2 for testing
             }
         }
-
     }
 
 
@@ -89,12 +98,19 @@ public class PlayerAttack : MMono, IData<PlayerCore>
         currentWeaponSlot.BulletDecrease();
         lastShootTime = Time.time;
     }
+
     private bool CanShoot()
     {
         if (currentWeaponSlot == null || currentWeaponSlot.weaponProfile == null) return false;
         WeaponProfile currentWeapon = currentWeaponSlot.weaponProfile;
         return lastShootTime + currentWeapon.attackSpeed <= Time.time;
 
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(meleeAttackPoint.transform.position, meleeAttackRange);
+        Gizmos.color = Color.red;
     }
 
     protected override void LoadComponents()

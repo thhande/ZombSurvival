@@ -6,14 +6,7 @@ public class WeaponDropContainer : WeaponContainer
 {
     [SerializeField] private SpriteRenderer spriteRenderer;
     [SerializeField] private WeaponSpawnObj weaponSpawnObj;
-    private void Awake()
-    {
-        LoadComponents();
-    }
-    private void OnValidate()
-    {
-        LoadComponents();
-    }
+
     private void Start()
     {
         LoadComponents();
@@ -23,7 +16,7 @@ public class WeaponDropContainer : WeaponContainer
         weaponSpawnObj.ReturnToPool();
     }
 
-    private void LoadComponents()
+    protected override void LoadComponents()
     {
         if (spriteRenderer == null) spriteRenderer = GetComponent<SpriteRenderer>();
         if (weaponSpawnObj == null) weaponSpawnObj = GetComponent<WeaponSpawnObj>();

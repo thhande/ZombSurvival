@@ -6,11 +6,6 @@ public class PlayerWeaponSlot : WeaponContainer
 {
     [SerializeField] private PlayerWeaponVisual weaponVisual;
 
-    private void OnValidate()
-    {
-        Start();
-    }
-
     void Start()
     {
         LoadComponents();
@@ -31,7 +26,6 @@ public class PlayerWeaponSlot : WeaponContainer
                 bulletCount = 0;
                 RemoveWeapon();
 
-
             }
             else UIInputManager.Instance.UpdateWeaponBulletCount(this.transform.GetSiblingIndex(), bulletCount);
         }
@@ -44,38 +38,43 @@ public class PlayerWeaponSlot : WeaponContainer
     }
 
 
-    public void AddNewWeapon(WeaponDropContainer newWeapon)
+
+    public void GetDropWeapon(WeaponDropContainer newWeapon)
     {
-        if (weaponProfile == null)
-        {
-            weaponProfile = newWeapon.weaponProfile;
-            bulletCount = newWeapon.bulletCount;
-            newWeapon.IsPickedUp();
+        if (weaponProfile == null) GetNewWeapon(newWeapon);
 
-
-        }
-        else if (weaponProfile != newWeapon.weaponProfile || (weaponProfile.weaponType == newWeapon.weaponProfile.weaponType && weaponProfile.weaponType == WeaponType.Melee))
+        else if (weaponProfile != newWeapon.weaponProfile)
         {
-            WeaponProfile oldWeapon = weaponProfile;
-            int oldBulletCount = bulletCount;
-            weaponProfile = newWeapon.weaponProfile;
-            bulletCount = newWeapon.bulletCount;
-            newWeapon.UpdateInfoAndVisual(oldWeapon, oldBulletCount);
+            SwapCurrentWeaponWithWeaponDrop(newWeapon);
         }
         else
         {
-            bulletCount += newWeapon.bulletCount;
+            bulletCount += newWeapon.bulletCount;  // increase bullet count if new weapon is the same with current
             newWeapon.IsPickedUp();
         }
-
         weaponVisual.UpdateWeaponVisual();
         UIInputManager.Instance.UpdateWeaponBulletCount(this.transform.GetSiblingIndex(), bulletCount);
         UIInputManager.Instance.SetWeaponSlotSprite(this.transform.GetSiblingIndex(), weaponProfile.weaponSprite);
     }
+    private void GetNewWeapon(WeaponDropContainer newWeapon)
+    {
+        weaponProfile = newWeapon.weaponProfile;
+        bulletCount = newWeapon.bulletCount;
+        newWeapon.IsPickedUp();
+    }
+
+    private void SwapCurrentWeaponWithWeaponDrop(WeaponDropContainer weaponDrop)
+    {
+        WeaponProfile oldWeapon = weaponProfile;
+        int oldBulletCount = bulletCount;
+        weaponProfile = weaponDrop.weaponProfile;
+        bulletCount = weaponDrop.bulletCount;
+        weaponDrop.UpdateInfoAndVisual(oldWeapon, oldBulletCount);
+    }
 
     //load components logic
     //#--------------------------------------------------
-    private void LoadComponents()
+    protected override void LoadComponents()
     {
         if (weaponVisual == null) weaponVisual = GetComponentInChildren<PlayerWeaponVisual>();
         if (weaponProfile != null) weaponVisual.UpdateWeaponVisual();
