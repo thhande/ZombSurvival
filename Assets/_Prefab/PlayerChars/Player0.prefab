@@ -1161,7 +1161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe346bd9b50b3054893bea3fe8d8d173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
+  moveSpeed: 7
   rb: {fileID: 3131168450417443814}
   anim: {fileID: 3724486456477980092}
   playerSprite: {fileID: 952449080994713915}

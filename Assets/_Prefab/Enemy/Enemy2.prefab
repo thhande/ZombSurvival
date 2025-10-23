@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  speed: 2000
+  speed: 2800
   nextWaypointDistance: 0.5
   spriteRenderer: {fileID: 8748086509164001634}
   seeker: {fileID: 4363099384326906791}

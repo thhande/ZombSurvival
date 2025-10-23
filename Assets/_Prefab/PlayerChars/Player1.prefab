@@ -444,7 +444,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe346bd9b50b3054893bea3fe8d8d173, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 8
+  moveSpeed: 7
   rb: {fileID: 5379215781965154023}
   anim: {fileID: 9106856703069412034}
   playerSprite: {fileID: 5030283371160628698}

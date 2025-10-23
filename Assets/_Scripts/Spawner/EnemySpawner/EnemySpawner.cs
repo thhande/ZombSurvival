@@ -29,7 +29,6 @@ public class EnemySpawner : MultiTypeObjectSpawner
                 validTags.Add(tag);
             }
         }
-
         if (validTags.Count == 0) return null;
 
         ObjectTag randomTag = validTags[Random.Range(0, validTags.Count)];
@@ -42,10 +41,10 @@ public class EnemySpawner : MultiTypeObjectSpawner
         {
             UpdateSpawnCountByWave();
             int spawnNum = Random.Range(minSpawnAmount, maxSpawnAmount + 1);
-            SpawnEnemy(spawnNum);
+            SpawnEnemyAroundCamera(spawnNum / 2);
+            SpawnEnemyAroundMap(spawnNum / 2);
             GameManager.instance.EnemyWaveUpdate();
             yield return new WaitForSeconds(spawnDelay);
-
         }
     }
     private void UpdateSpawnCountByWave()
@@ -56,13 +55,23 @@ public class EnemySpawner : MultiTypeObjectSpawner
             spawnDelay -= 10 / (GameManager.instance.wave * 2);
         }
     }
-    private void SpawnEnemy(int amount)
+    private void SpawnEnemyAroundCamera(int amount)
     {
         for (int i = 0; i < amount; i++)
         {
             ObjectPool enemyPool = GetRandomEnemyPoolAuto();
             SpawnObject enemy = enemyPool.GetObjectFromPool();
-            enemy.transform.position = GetRandomPosition();
+            enemy.transform.position = GetRandomPositionAroundCamera();
+
+        }
+    }
+    private void SpawnEnemyAroundMap(int amount)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            ObjectPool enemyPool = GetRandomEnemyPoolAuto();
+            SpawnObject enemy = enemyPool.GetObjectFromPool();
+            enemy.transform.position = GetRandomPositionAroundWorld();
 
         }
     }
