@@ -18,7 +18,7 @@ public class CharacterSelectBtn : MonoBehaviour
 
     public void OnClickSelect()
     {
-        GameManager.instance.SetPlayer(this.charData.characterPrefab);
+        GameManager.Instance.SetPlayer(this.charData.characterPrefab);
     }
 
     private void LoadComponents()

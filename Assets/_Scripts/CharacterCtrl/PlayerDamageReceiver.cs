@@ -23,7 +23,7 @@ public class PlayerDamageReceiver : DamageReceiver, IData<PlayerCore>
     {
         base.Die();
         transform.parent.gameObject.SetActive(false);
-        GameManager.instance.GameOver();
+        GameManager.Instance.GameOver();
     }
     public override void TakeDamage(int damage)
     {

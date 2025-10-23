@@ -30,10 +30,10 @@ public class ButtonHandler : MonoBehaviour
         switch (action)
         {
             case ButtonAction.startnewgame:
-                GameManager.instance.StartNewGame();
+                GameManager.Instance.StartNewGame();
                 break;
             case ButtonAction.restartgame:
-                GameManager.instance.Restart();
+                GameManager.Instance.Restart();
                 break;
             case ButtonAction.totitle:
                 SceneManager.LoadScene(0);

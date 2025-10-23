@@ -5,9 +5,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager instance;
     [SerializeField] GameObject charPrefab;
     [SerializeField] GameObject player;
 
@@ -72,7 +71,15 @@ public class GameManager : MonoBehaviour
 
         ResetValue();
         isGameActive = true;
-        SceneManager.LoadScene(1);
+        AsyncLoader loader = GameObject.FindAnyObjectByType<AsyncLoader>();
+        if (loader != null)
+        {
+            loader.LoadLevel(1);
+        }
+        else
+        {
+            SceneManager.LoadScene(1);
+        }
     }
 
 
@@ -82,7 +89,7 @@ public class GameManager : MonoBehaviour
         isGameActive = false;
         ResetValue();
         if (player != null) Destroy(player);
-        OnGameOver();
+        OnGameOver?.Invoke();
     }
 
 
@@ -131,25 +138,17 @@ public class GameManager : MonoBehaviour
         }
     }
 
-
-
-
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance != null) Destroy(gameObject);
-        else
-        {
-            instance = this;
-            LoadComponent();
-        }
-
+        // if (Instance != null) Destroy(gameObject);
+        // else
+        // {
+        //     Instance = this;
+        // }
+        base.Awake();
         DontDestroyOnLoad(gameObject);
         highScore = SaveSystem.Load().highScore;
 
     }
 
-    private void LoadComponent()
-    {
-        return;
-    }
 }

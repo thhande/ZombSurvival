@@ -23,7 +23,7 @@ public class EnemyPathAI : MonoBehaviour
     {
         LoadComponents();
         LoadPlayerTarget();
-        InvokeRepeating(nameof(UpdatePath), 0f, 0.5f);
+        InvokeRepeating(nameof(UpdatePath), 0f, 0.1f);
 
     }
 
@@ -54,7 +54,7 @@ public class EnemyPathAI : MonoBehaviour
 
     private void LoadPlayerTarget()
     {
-        GameObject newTarget = GameManager.instance.CurrentPlayer;
+        GameObject newTarget = GameManager.Instance.CurrentPlayer;
         if (newTarget == null) target = GameObject.FindAnyObjectByType<PlayerDamageReceiver>().transform; // player pos wasnt signed to instance, find new one
         else target = newTarget.transform;
     }

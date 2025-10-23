@@ -25,11 +25,11 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         LoadComponent();
-        GameManager.instance.OnScoreChange += UpdateScoreText;
-        GameManager.instance.OnWaveChange += UpdateWaveCount;
-        GameManager.instance.OnGameOver += GameOverUIUpdate;
-        GameManager.instance.OnTimePasses += UpdateTimePasses;
-        GameManager.instance.OnHScoreChange += UpdateHScoreText;
+        GameManager.Instance.OnScoreChange += UpdateScoreText;
+        GameManager.Instance.OnWaveChange += UpdateWaveCount;
+        GameManager.Instance.OnGameOver += GameOverUIUpdate;
+        GameManager.Instance.OnTimePasses += UpdateTimePasses;
+        GameManager.Instance.OnHScoreChange += UpdateHScoreText;
         playerBuffs.OnBuffChanged += UpDateBuffIcons;
 
 
@@ -40,17 +40,17 @@ public class UIManager : MonoBehaviour
 
     public void UpdateScoreText()
     {
-        scoreText.text = GameManager.instance.score.ToString();
+        scoreText.text = GameManager.Instance.score.ToString();
     }
 
     public void UpdateWaveCount()
     {
-        waveCount.text = "wave :" + GameManager.instance.wave.ToString();
+        waveCount.text = "wave :" + GameManager.Instance.wave.ToString();
     }
 
     public void UpdateTimePasses()
     {
-        timeCount.text = GameManager.instance.playTime.ToString();
+        timeCount.text = GameManager.Instance.playTime.ToString();
     }
 
 
@@ -74,18 +74,18 @@ public class UIManager : MonoBehaviour
 
     private void UpdateHScoreText()
     {
-        highScoreText.text = "Hi:" + GameManager.instance.highScore.ToString();
+        highScoreText.text = "Hi:" + GameManager.Instance.highScore.ToString();
     }
 
     private void OnDestroy()
     {
-        if (GameManager.instance != null)
+        if (GameManager.Instance != null)
         {
-            GameManager.instance.OnScoreChange -= UpdateScoreText;
-            GameManager.instance.OnWaveChange -= UpdateWaveCount;
-            GameManager.instance.OnGameOver -= GameOverUIUpdate;
-            GameManager.instance.OnTimePasses -= UpdateTimePasses;
-            GameManager.instance.OnHScoreChange -= UpdateHScoreText;
+            GameManager.Instance.OnScoreChange -= UpdateScoreText;
+            GameManager.Instance.OnWaveChange -= UpdateWaveCount;
+            GameManager.Instance.OnGameOver -= GameOverUIUpdate;
+            GameManager.Instance.OnTimePasses -= UpdateTimePasses;
+            GameManager.Instance.OnHScoreChange -= UpdateHScoreText;
             if (playerBuffs != null) playerBuffs.OnBuffChanged -= UpDateBuffIcons;
         }
     }
