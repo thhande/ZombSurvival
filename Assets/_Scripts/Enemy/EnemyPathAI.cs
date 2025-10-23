@@ -15,7 +15,6 @@ public class EnemyPathAI : MonoBehaviour
 
     Path path;
     int currentWaypoint = 0;
-    // bool reachedEndOfPath = false;
 
     [SerializeField] Seeker seeker;
     [SerializeField] Rigidbody2D rb;
@@ -48,7 +47,6 @@ public class EnemyPathAI : MonoBehaviour
     {
         if (!p.error)
         {
-
             path = p;
             currentWaypoint = 0;
         }

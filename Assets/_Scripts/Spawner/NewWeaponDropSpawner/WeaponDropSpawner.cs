@@ -11,15 +11,10 @@ public class WeaponDropSpawner : SingleTypeObjectSpawner
     private int minSpawnCount = 2;
     private int maxSpawnCount = 15;
 
-    private void OnValidate()
-    {
-        LoadComponents();
-    }
 
     private void Start()
     {
         LoadComponents();
-        SpawnAtRandomPos();
         SpawnAtRandomPos();
         StartCoroutine(StartSpawn());
     }
@@ -33,12 +28,11 @@ public class WeaponDropSpawner : SingleTypeObjectSpawner
             {
                 SpawnAtRandomPos();
             }
-            // Debug.Log("Spawned at: " + objectPool.transform.position);
         }
     }
     protected override void SpawnAtRandomPos()
     {
-        Vector2 spawnPos = GetRandomPosition();
+        Vector2 spawnPos = GenerateRandomPos();
         WeaponSpawnObj obj = (WeaponSpawnObj)objectPool.GetObjectFromPool();
         obj.transform.position = spawnPos;
         WeaponProfile weaponProfile = weaponProfiles[Random.Range(0, weaponProfiles.Count)];
@@ -46,6 +40,16 @@ public class WeaponDropSpawner : SingleTypeObjectSpawner
         obj.OnSpawn(weaponProfile, newBulletCount);
         obj.SetPool(this.objectPool);
     }
+
+    private Vector2 GenerateRandomPos()//weapon may drop randomly near or far player
+    {
+        Vector2 spawnPos;
+        int randomNum = Random.Range(0, 2);
+        if (randomNum == 0) spawnPos = GetRandomPositionAroundCamera();
+        else spawnPos = GetRandomPositionAroundWorld();
+        return spawnPos;
+    }
+
     private int GenerateRandomBulletCount(WeaponProfile newWeaponProfile)
     {
 
@@ -58,7 +62,7 @@ public class WeaponDropSpawner : SingleTypeObjectSpawner
     }
 
 
-    private void LoadComponents()
+    protected override void LoadComponents()
     {
         objectPool = transform.GetComponentInChildren<ObjectPool>();
     }
