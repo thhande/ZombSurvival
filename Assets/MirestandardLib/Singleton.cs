@@ -7,13 +7,19 @@ public class Singleton<T> : MMono where T : MonoBehaviour
     public static T Instance;
     private void InitialInstance()
     {
-        if (Instance != null) Destroy(gameObject);
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this as T;
     }
 
     protected override void Awake()
     {
-        base.Awake();
         InitialInstance();
+        base.Awake();
+
     }
 }

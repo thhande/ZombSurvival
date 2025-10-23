@@ -43,16 +43,16 @@ public class EnemySpawner : MultiTypeObjectSpawner
             int spawnNum = Random.Range(minSpawnAmount, maxSpawnAmount + 1);
             SpawnEnemyAroundCamera(spawnNum / 2);
             SpawnEnemyAroundMap(spawnNum / 2);
-            GameManager.instance.EnemyWaveUpdate();
+            GameManager.Instance.EnemyWaveUpdate();
             yield return new WaitForSeconds(spawnDelay);
         }
     }
     private void UpdateSpawnCountByWave()
     {
-        if (GameManager.instance.wave != 0 && GameManager.instance.wave % 10 == 0)
+        if (GameManager.Instance.wave != 0 && GameManager.Instance.wave % 10 == 0)
         {
             maxSpawnAmount++;
-            spawnDelay -= 10 / (GameManager.instance.wave * 2);
+            spawnDelay -= 10 / (GameManager.Instance.wave * 2);
         }
     }
     private void SpawnEnemyAroundCamera(int amount)

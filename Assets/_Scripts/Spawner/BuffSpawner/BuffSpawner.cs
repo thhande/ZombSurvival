@@ -15,7 +15,7 @@ public class BuffSpawner : SingleTypeObjectSpawner
 
     IEnumerator SpawnCoroutine()
     {
-        while (GameManager.instance.isGameActive)
+        while (GameManager.Instance.isGameActive)
         {
             yield return new WaitForSeconds(10);
             Spawn();
@@ -27,7 +27,7 @@ public class BuffSpawner : SingleTypeObjectSpawner
         BuffData randomBuff = buffDatas[Random.Range(0, buffDatas.Count)];
         BuffSpawnObject buffDrop = (BuffSpawnObject)pool.GetObjectFromPool();
         buffDrop.buffDrop.buffData = randomBuff;
-        buffDrop.transform.position = GetRandomPositionAroundWorld();
+        buffDrop.transform.position = GetRandomPositionAroundCamera();
     }
 
     protected override void Awake()

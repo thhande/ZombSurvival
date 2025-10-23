@@ -20,7 +20,7 @@ public class EnemyDamageReceiver : DamageReceiver, IData<EnemyCore>
     {
         base.Die();
         Reset();
-        GameManager.instance.AddScore(reward);
+        GameManager.Instance.AddScore(reward);
         if (spawnObject != null) spawnObject.ReturnToPool();
 
     }
