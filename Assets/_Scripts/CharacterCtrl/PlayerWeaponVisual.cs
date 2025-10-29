@@ -10,7 +10,7 @@ public class PlayerWeaponVisual : MonoBehaviour
 
     public void UpdateWeaponVisual()
     {
-        weaponSpriteRenderer.sprite = weaponSlot.weaponProfile.weaponSprite;
+        weaponSpriteRenderer.sprite = weaponSlot.weaponProfile.WeaponSprite;
     }
     public void UpdateWeaponAnim()
     {

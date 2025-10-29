@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 5746344821979837371}
   - component: {fileID: 1212993274251641583}
   - component: {fileID: 2153319150713652515}
+  - component: {fileID: 2476634235630909502}
   m_Layer: 0
-  m_Name: ShotgunBullet
+  m_Name: StraightBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69,7 +70,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.0017311275}
+  m_Offset: {x: 0, y: 0.01552698}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -80,7 +81,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.22222222, y: 0.51715034}
+  m_Size: {x: 0.22222222, y: 0.38771492}
   m_EdgeRadius: 0
 --- !u!114 &5746344821979837371
 MonoBehaviour:
@@ -120,7 +121,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 510d773d7829f334eb44750f5c15158b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selfDestroyTime: 22
+  selfDestroyTime: 1
+--- !u!114 &2476634235630909502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 65648129052079031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20fae74bf41796549b6f27a67eb329bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {fileID: 1212993274251641583}
+  damageSender: {fileID: 5746344821979837371}
+  bulletSprite: {fileID: 7944676944493116272}
 --- !u!1 &2055962877372437738
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,7 +210,7 @@ SpriteRenderer:
   m_SortingLayerID: 782927111
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: -537537479, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
+  m_Sprite: {fileID: 1737672109, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

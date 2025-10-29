@@ -65,7 +65,7 @@ public class PlayerAttack : MMono, IData<PlayerCore>
             DetectAndDealMeleeDamage(bareHandAttackPow);
             return;
         }
-        int currentWeaponPow = currentWeaponSlot.weaponProfile.meleeDamage;
+        int currentWeaponPow = currentWeaponSlot.weaponProfile.MeleeDamage;
         DetectAndDealMeleeDamage(currentWeaponPow);
 
     }
@@ -91,7 +91,8 @@ public class PlayerAttack : MMono, IData<PlayerCore>
     private void DoRangedAttack()
     {
         if (!CanShoot()) return;
-        BulletMoving newBullet = Instantiate(currentWeaponSlot.weaponProfile.bulletPrefab, currentWeaponSlot.transform.position, currentWeaponSlot.transform.rotation);
+        BulletController newBullet = Instantiate(currentWeaponSlot.weaponProfile.BulletPrefab, currentWeaponSlot.transform.position, currentWeaponSlot.transform.rotation);
+        newBullet.SetBulletStats(currentWeaponSlot.weaponProfile);
         Vector2 closestEnemyPos = aimSight.GetClosestEnemyPos();
         if (closestEnemyPos != Vector2.zero) newBullet.SetTarget(aimSight.GetClosestEnemyPos());
         else newBullet.SetRotation(InputManager.Instance.GetAttackDirVector());
@@ -103,7 +104,7 @@ public class PlayerAttack : MMono, IData<PlayerCore>
     {
         if (currentWeaponSlot == null || currentWeaponSlot.weaponProfile == null) return false;
         WeaponProfile currentWeapon = currentWeaponSlot.weaponProfile;
-        return lastShootTime + currentWeapon.attackSpeed <= Time.time;
+        return lastShootTime + currentWeapon.AttackSpeed <= Time.time;
 
     }
 

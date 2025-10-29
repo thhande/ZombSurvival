@@ -5,9 +5,14 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public class BulletDamageSender : DamageSender
 {
-    public BulletDamageSender()
+    // public BulletDamageSender()
+    // {
+    //     damage = 10;
+    // }
+
+    public void SetDamage(int newDamage)
     {
-        damage = 10;
+        damage = newDamage;
     }
 
     protected override void DealDamage(Collider2D collision)

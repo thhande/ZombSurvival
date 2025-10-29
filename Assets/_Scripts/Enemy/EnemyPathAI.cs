@@ -67,6 +67,7 @@ public class EnemyPathAI : MonoBehaviour
     private void MoveToTarget()
     {
         if (path == null) return;
+        if (target == null) return;
         if (currentWaypoint >= path.vectorPath.Count)
         {
             // reachedEndOfPath = true;

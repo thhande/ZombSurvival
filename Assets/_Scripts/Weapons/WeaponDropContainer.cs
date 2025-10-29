@@ -24,7 +24,7 @@ public class WeaponDropContainer : WeaponContainer
     public void UpdateInfoAndVisual(WeaponProfile newWeaponProfile, int newBulletCount)
     {
         weaponProfile = newWeaponProfile;
-        spriteRenderer.sprite = weaponProfile.weaponSprite;
+        spriteRenderer.sprite = weaponProfile.WeaponSprite;
         bulletCount = newBulletCount;
     }
 

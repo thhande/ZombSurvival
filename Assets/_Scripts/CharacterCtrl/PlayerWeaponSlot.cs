@@ -54,7 +54,7 @@ public class PlayerWeaponSlot : WeaponContainer
         }
         weaponVisual.UpdateWeaponVisual();
         UIInputManager.Instance.UpdateWeaponBulletCount(this.transform.GetSiblingIndex(), bulletCount);
-        UIInputManager.Instance.SetWeaponSlotSprite(this.transform.GetSiblingIndex(), weaponProfile.weaponSprite);
+        UIInputManager.Instance.SetWeaponSlotSprite(this.transform.GetSiblingIndex(), weaponProfile.WeaponSprite);
     }
     private void GetNewWeapon(WeaponDropContainer newWeapon)
     {
