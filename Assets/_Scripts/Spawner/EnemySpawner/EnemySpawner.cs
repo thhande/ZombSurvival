@@ -45,6 +45,7 @@ public class EnemySpawner : MultiTypeObjectSpawner
             SpawnEnemyAroundMap(spawnNum / 2);
             GameManager.Instance.EnemyWaveUpdate();
             yield return new WaitForSeconds(spawnDelay);
+
         }
     }
     private void UpdateSpawnCountByWave()

@@ -10,6 +10,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] GameObject charPrefab;
     [SerializeField] GameObject player;
 
+    [SerializeField] private ScoreManager scoreManager;
+
     public GameObject CurrentPlayer => player;
     public int score = 0;
     public int highScore;
@@ -19,7 +21,7 @@ public class GameManager : Singleton<GameManager>
 
 
     public bool isGameActive;
-    public int wave = 1;
+    public int wave = 0;
 
     Coroutine timeCoroutine;
 
@@ -71,15 +73,7 @@ public class GameManager : Singleton<GameManager>
 
         ResetValue();
         isGameActive = true;
-        AsyncLoader loader = GameObject.FindAnyObjectByType<AsyncLoader>();
-        if (loader != null)
-        {
-            loader.LoadLevel(1);
-        }
-        else
-        {
-            SceneManager.LoadScene(1);
-        }
+        SceneManager.LoadScene(1);
     }
 
 
@@ -105,6 +99,7 @@ public class GameManager : Singleton<GameManager>
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        Debug.Log("loaded scene");
         if (scene.buildIndex == 1 && charPrefab != null)
         {
             player = Instantiate(charPrefab, Vector3.zero, Quaternion.identity);
@@ -140,15 +135,16 @@ public class GameManager : Singleton<GameManager>
 
     protected override void Awake()
     {
-        // if (Instance != null) Destroy(gameObject);
-        // else
-        // {
-        //     Instance = this;
-        // }
         base.Awake();
         DontDestroyOnLoad(gameObject);
         highScore = SaveSystem.Load().highScore;
 
+    }
+
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        if (scoreManager == null) scoreManager = GetComponentInChildren<ScoreManager>();
     }
 
 }

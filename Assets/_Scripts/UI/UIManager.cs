@@ -31,9 +31,6 @@ public class UIManager : MonoBehaviour
         GameManager.Instance.OnTimePasses += UpdateTimePasses;
         GameManager.Instance.OnHScoreChange += UpdateHScoreText;
         playerBuffs.OnBuffChanged += UpDateBuffIcons;
-
-
-        // restartButton.onClick.AddListener(GameManager.instance.Restart);
         UpdateHScoreText();
         UpdateScoreText();
     }

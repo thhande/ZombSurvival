@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CharacterSelectBtn : MonoBehaviour
+public class CharacterSelectBtn : MMono
 {
     [SerializeField] Button charSelect;
     [SerializeField] CharacterData charData;
@@ -11,26 +11,34 @@ public class CharacterSelectBtn : MonoBehaviour
     void Start()
     {
         LoadComponents();
-        charIcon.sprite = charData.icon;
+        UpdateButtonInfo();
         charSelect.onClick.AddListener(OnClickSelect);
 
     }
+
+    public void SetCharData(CharacterData characterData)
+    {
+        charData = characterData;
+        UpdateButtonInfo();
+
+    }
+
+    private void UpdateButtonInfo()
+    {
+        if (charData == null) return;
+        charIcon.sprite = charData.icon;
+    }
+
 
     public void OnClickSelect()
     {
         GameManager.Instance.SetPlayer(this.charData.characterPrefab);
     }
 
-    private void LoadComponents()
+    protected override void LoadComponents()
     {
         if (charSelect == null) charSelect = GetComponent<Button>();
         if (charIcon == null) charIcon = transform.Find("Image").GetComponent<Image>();
     }
-
-    private void OnValidate()
-    {
-        LoadComponents();
-    }
-
 
 }

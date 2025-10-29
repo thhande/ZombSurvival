@@ -53,7 +53,7 @@ public class WeaponDropSpawner : SingleTypeObjectSpawner
     private int GenerateRandomBulletCount(WeaponProfile newWeaponProfile)
     {
 
-        if (newWeaponProfile.weaponType == WeaponType.Melee)
+        if (newWeaponProfile.WeaponType == WeaponType.Melee)
         {
             return Random.Range(20, 30);
         }
